@@ -1,5 +1,5 @@
 const errHandler = (err, request, response, next) => {
-    console.log(err,'ini error')
+    console.log(err)
     if (err.name) {
         if (err.name == "SequelizeValidationError") {
             let errors = []

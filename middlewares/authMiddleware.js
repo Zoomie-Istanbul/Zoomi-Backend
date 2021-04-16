@@ -1,4 +1,4 @@
-const { Users, Rooms } = require('../models')
+const { Users } = require('../models')
 const { verifyToken } = require('../helpers/jwtHelper.js')
 
 const authenticate = (request, response, next) => {
@@ -26,5 +26,24 @@ const authenticate = (request, response, next) => {
     }
 }
 
+const authorize = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+            email: request.userData.email
+        }
+    })
+    .then(data => {
+        if (data.id === request.userData.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
 
-module.exports = {authenticate}
+
+module.exports = {authenticate, authorize}
