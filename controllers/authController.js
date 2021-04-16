@@ -10,7 +10,7 @@ class AuthController {
             password: request.body.password,
             email: request.body.email,
             name: request.body.name,
-            roles: request.body.roles,
+            roles: "user"
             // garageId: (request.body.garageId) ? request.body.garageId: null,
         }
         if (registerData.password.legth < 6 ) {

@@ -7,7 +7,7 @@ const AuthController = require('../controllers/authController.js')
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
 
-router.use(authenticate)
+// router.use(authenticate)
 
 router.post('/garage',GarageController.create)
 
