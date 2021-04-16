@@ -9,13 +9,13 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
      await queryInterface.addColumn(
-      "Users",
-      'garageId',
+      "Garages",
+      'userId',
       {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Garages"
+            tableName: "Users"
           },
           key: 'id'
         },

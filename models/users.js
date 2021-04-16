@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Users.belongsTo(models.Garages,{
-        foreignKey: 'garageId'
+      Users.hasMany(models.Garages,{
+        foreignKey: 'userId'
       })
       Users.hasMany(models.Transactions,{
         foreignKey: 'userId'
@@ -61,7 +61,18 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'name is required'
         }
       }
-    }
+    },
+    roles: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'roles is required'
+        }
+      }
+    },
+    image: DataTypes.TEXT
   }, {
     hooks: {
       beforeCreate : (data,opt) => {

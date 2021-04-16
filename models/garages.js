@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       Garages.hasMany(models.Favorites,{
         foreignKey: 'garageId'
       })
-      Garages.hasMany(models.Users,{
-        foreignKey: 'garageId'
+      Garages.belongsTo(models.Users,{
+        foreignKey: 'userId'
       })
       Garages.hasMany(models.Transactions,{
         foreignKey: 'garageId'
@@ -57,7 +57,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Address cant be empty'
         }
       }
-    }
+    },
+    image: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Garages',

@@ -10,8 +10,8 @@ class AuthController {
             password: request.body.password,
             email: request.body.email,
             name: request.body.name,
-            role: request.body.role,
-            garageId: (request.body.garageId) ? request.body.garageId: null,
+            roles: request.body.roles,
+            // garageId: (request.body.garageId) ? request.body.garageId: null,
         }
         if (registerData.password.legth < 6 ) {
             next({code: 400, msg: 'Password must be at least 6 characters'})
@@ -36,19 +36,22 @@ class AuthController {
             where: {
                 [Op.or]: [{ username: formData.username }, { email: formData.username }]
             },
-            include:{
-                model: Garages,
-                attributes: ['id','name','status', 'address']
-              },
+            // include:{
+            //     model: Garages,
+            //     attributes: ['id','name','status', 'address']
+            //   },
         })
             .then(data => {
                 if (data) {
+                    // console.log("masuk sini");
                     if (verify(formData.password, data.password)){
+                        // console.log("masuk sini coy");
                         let tokenMaterial = {
                             id: data.id,
                             username: data.username,
                             email: data.email
                         }
+                        console.log(tokenMaterial);
                         let returnData = data.dataValues
                         delete returnData['password']
                         returnData['access_token'] = sign(tokenMaterial)
