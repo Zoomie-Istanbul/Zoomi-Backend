@@ -1,4 +1,4 @@
-const { Users, Favorites, Garages } = require('../models')
+const { Users, Favorites, Garages, Transactions } = require('../models')
 const { verifyToken } = require('../helpers/jwtHelper.js')
 
 const authenticate = (request, response, next) => {
@@ -72,5 +72,50 @@ const authorizeFavorites = (request, response, next) => {
     })
 }
 
+const authorizeTransaction = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+            email: request.userData.email
+        }
+    })
+    .then(data => {
+        if (data.roles == 'user') {   
+            return Transactions.findOne({
+                where: {
+                    id: request.params.id,
+                    userId: data.id
+                }
+            })
+        }else{
+            return (
+                Garages.findOne({
+                    where: {
+                        userId: data.id
+                    }
+                })
+                .then(datas => {
+                    return Transactions.findOne({
+                        where: {
+                            id: request.params.id,
+                            garageId: datas.id
+                        }
+                    })
+                })
+            )
+        }
+    })
+    .then(data => {
+        if (data && data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
 
-module.exports = {authenticate, authorize, authorizeFavorites}
+
+module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction}

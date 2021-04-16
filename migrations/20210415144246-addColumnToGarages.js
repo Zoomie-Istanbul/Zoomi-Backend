@@ -36,8 +36,8 @@ module.exports = {
      */
 
      await queryInterface.removeColumn(
-      "Users",
-      'garageId'
+      "Garages",
+      'userId'
     )
   }
 };

@@ -29,12 +29,19 @@ class UserController {
             })
     }
     static update(request, response, next){
-          let data ={
-              username: (request.body.username) ? request.body.username : null,
-              name: (request.body.name) ? request.body.name : null,
-              email: (request.body.email) ? request.body.email : null,
-              image: (request.body.image) ? request.body.image : null
-          }
+          let data = {}
+            if (request.body.username) {
+                data.username = request.body.username
+            }
+            if (request.body.name) {
+                data.name = request.body.name
+            }
+            if (request.body.email) {
+                data.email = request.body.email
+            }
+            if (request.body.image) {
+                data.image = request.body.image
+            }
           Users.update(data,{
               where: {
                   id: request.userData.id

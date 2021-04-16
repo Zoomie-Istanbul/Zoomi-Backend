@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'garageId'
       })
       Transactions.belongsTo(models.Users,{
-        foreignKey: 'userid'
+        foreignKey: 'userId'
       })
       Transactions.hasMany(models.Orders,{
         foreignKey: 'transactionId'
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Transactions.init({
-    date: DataTypes.TIME,
+    date: DataTypes.DATE,
     status: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
   }, {

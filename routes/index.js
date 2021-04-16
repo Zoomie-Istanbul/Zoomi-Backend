@@ -7,6 +7,7 @@ const UserController = require('../controllers/userController.js')
 const ItemController = require('../controllers/itemController')
 const Users = require('./users.js')
 const Favorites = require('./favorites.js')
+const Transactions = require('./transactions.js')
 
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
@@ -28,6 +29,7 @@ router.patch('/item/:id', authenticate, ItemController.delete)
 
 router.use('/user/', Users)
 router.use('/favorites/', Favorites)
+router.use('/transactions/', Transactions)
 
 // router.use(authenticate)
 
