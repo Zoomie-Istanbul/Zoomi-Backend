@@ -13,14 +13,16 @@ class favoriteController {
           order: [
             ['id', 'DESC']
           ],
-          include:{
-            model: Users,
-            attributes: ['id','name','image']
-          },
-          include:{
-            model: Garages,
-            attributes: ['id','name','image']
-          },
+          include:[
+            {
+              model: Users,
+              attributes: ['id','name','image']
+            },
+            {
+                model: Garages,
+                attributes: ['id','name','image']
+              },
+        ],
           where: where
         })
             .then(data => {
@@ -35,14 +37,16 @@ class favoriteController {
             where: {
                 id: request.params.id
             },
-            include:{
-              model: Users,
-              attributes: ['id','name','image']
-            },
-            include:{
-              model: Garages,
-              attributes: ['id','name','image']
-            },
+            include:[
+                {
+                  model: Users,
+                  attributes: ['id','name','image']
+                },
+                {
+                    model: Garages,
+                    attributes: ['id','name','image']
+                  },
+            ],
         })
             .then(data => {
                 response.status(200).json(data)
