@@ -125,10 +125,10 @@ Request Headers:
 
 Request Body:
 {
-  username: Required | String,
-  email: Required | String,
-  name: Required | String,
-  name: Required | String,
+  username: Optional | String,
+  email: Optional | String,
+  name: Optional | String,
+  image: Optional | String,
 }
 ```
 
@@ -289,6 +289,221 @@ Request Headers:
 - Response Body:
 {
     "message": "item successfully deleted"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+
+### POST /transactions
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+Request Body:
+{
+  garageId: Required | INT,
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "userId": 1,
+    "garageId": 3,
+    "date": "2021-04-16T16:12:11.547Z",
+    "status": 0,
+    "price": 0,
+    "updatedAt": "2021-04-16T16:12:11.547Z",
+    "createdAt": "2021-04-16T16:12:11.547Z"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+
+### GET /transactions
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+Request Body:
+{
+  garageId or userId : Required (choose one) | INT,
+  status : Optional | INT
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 2,
+        "date": "2021-04-16T16:12:11.547Z",
+        "status": 0,
+        "price": 0,
+        "createdAt": "2021-04-16T16:12:11.547Z",
+        "updatedAt": "2021-04-16T16:12:11.547Z",
+        "garageId": 3,
+        "userId": 1,
+        "User": {
+            "id": 1,
+            "name": "pepi",
+            "image": null
+        },
+        "Garage": {
+            "id": 3,
+            "name": "ASTRA",
+            "image": null
+        }
+    }
+]
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+```
+### GET /transactions/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "date": "2021-04-16T16:12:11.547Z",
+    "status": 0,
+    "price": 0,
+    "createdAt": "2021-04-16T16:12:11.547Z",
+    "updatedAt": "2021-04-16T16:12:11.547Z",
+    "garageId": 3,
+    "userId": 1,
+    "User": {
+        "id": 1,
+        "name": "pepi",
+        "image": null
+    },
+    "Garage": {
+        "id": 3,
+        "name": "ASTRA",
+        "image": null
+    }
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PUT /transactions/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  status : Required | INT
+  price : Required | INT
+  date : Optional | DATE
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "data": {
+        "id": 2,
+        "date": "2021-04-16T16:12:11.547Z",
+        "status": 1,
+        "price": 3000,
+        "createdAt": "2021-04-16T16:12:11.547Z",
+        "updatedAt": "2021-04-16T17:00:53.960Z",
+        "garageId": 3,
+        "userId": 1
+    }
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PATCH /transactions/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+Request Body:
+{
+  status : Required | INT
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "msg": "Status Updated!"
 }
 ```
 * Error Response

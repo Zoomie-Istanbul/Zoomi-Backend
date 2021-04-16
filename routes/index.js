@@ -6,6 +6,7 @@ const AuthController = require('../controllers/authController.js')
 const UserController = require('../controllers/userController.js')
 const Users = require('./users.js')
 const Favorites = require('./favorites.js')
+const Transactions = require('./transactions.js')
 
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
@@ -15,6 +16,7 @@ router.post('/login',AuthController.login)
 
 router.use('/user/', Users)
 router.use('/favorites/', Favorites)
+router.use('/transactions/', Transactions)
 
 // router.use(authenticate)
 
