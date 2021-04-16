@@ -6,24 +6,23 @@ const { Op } = require("sequelize");
 class AuthController {
     static register(request, response, next) {
         let registerData = {
-            username: request.body.username,
-            password: request.body.password,
-            email: request.body.email,
-            name: request.body.name,
+            username: (request.body.username) ? request.body.username : null,
+            password: (request.body.password) ? request.body.password : null,
+            email: (request.body.email) ? request.body.email : null,
+            name: (request.body.name) ? request.body.name : null,
+            image: (request.body.image) ? request.body.image : null,
             roles: "user"
-            // garageId: (request.body.garageId) ? request.body.garageId: null,
         }
-        if (registerData.password.legth < 6 ) {
+        if (registerData.password && registerData.password.legth < 6 ) {
             next({code: 400, msg: 'Password must be at least 6 characters'})
         }
         Users.create(registerData)
             .then (data => {
-                let userdata = data
+                let userdata = data.dataValues
                 delete userdata['password']
                 response.status(201).json({success: true, message: "user created", data: userdata})
             })
             .catch (err => {
-                // console.log(err)
                 next(err)
             })
     }
@@ -36,22 +35,15 @@ class AuthController {
             where: {
                 [Op.or]: [{ username: formData.username }, { email: formData.username }]
             },
-            // include:{
-            //     model: Garages,
-            //     attributes: ['id','name','status', 'address']
-            //   },
         })
             .then(data => {
                 if (data) {
-                    // console.log("masuk sini");
                     if (verify(formData.password, data.password)){
-                        // console.log("masuk sini coy");
                         let tokenMaterial = {
                             id: data.id,
                             username: data.username,
                             email: data.email
                         }
-                        console.log(tokenMaterial);
                         let returnData = data.dataValues
                         delete returnData['password']
                         returnData['access_token'] = sign(tokenMaterial)
