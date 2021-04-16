@@ -41,8 +41,55 @@ class GarageController{
                 // console.log(err)
                 next(err)
             })
+    }
 
-        
+    static detail(request, response, next){
+        Garages.findOne({
+            where: {
+                id: request.params.id
+            }
+        })
+            .then(data => {
+                // console.log(request.userData.id, "ini request");
+                // console.log(request.params.id, "ini params");
+                if(+data.userId === +request.userData.id){
+                let returnData = data.dataValues
+                response.status(200).json(returnData)
+                }
+                else{
+                response.status(401).json({msg: "unauthorized user"})
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static update(request, response, next){
+        let data ={
+            name: (request.body.name) ? request.body.name : null,
+            address: (request.body.address) ? request.body.address : null,
+            image: (request.body.image) ? request.body.image : null
+        }
+
+        // console.log(request.userData, "ini user id");
+        Garages.update(data,{
+            where: {
+                userId: request.userData.id
+            },
+            returning: true
+        })
+            .then(data => {
+                if (data[0] === 1) {
+                    let returnData = data[1]
+                    response.status(200).json(returnData[0].dataValues)
+                }else{
+                    next({code: 404, msg: 'data not found'})
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }
 
