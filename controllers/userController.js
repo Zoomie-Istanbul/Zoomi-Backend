@@ -1,4 +1,5 @@
 const { Users } = require('../models')
+const {hash} = require('../helpers/passwordHelper.js')
 
 class UserController {
     static index(request, response, next){
@@ -56,7 +57,7 @@ class UserController {
     static changePassword(request, response, next){
         if (request.body.password.length > 5) {
             let data ={
-                password: request.body.password
+                password: hash(request.body.password)
             }
             Users.update(data,{
                 where: {

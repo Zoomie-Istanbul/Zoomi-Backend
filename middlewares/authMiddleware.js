@@ -1,4 +1,4 @@
-const { Users } = require('../models')
+const { Users, Favorites, Garages } = require('../models')
 const { verifyToken } = require('../helpers/jwtHelper.js')
 
 const authenticate = (request, response, next) => {
@@ -45,5 +45,32 @@ const authorize = (request, response, next) => {
     })
 }
 
+const authorizeFavorites = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+            email: request.userData.email
+        }
+    })
+    .then(data => {
+        return Favorites.findOne({
+            where: {
+                id: request.params.id,
+                userId: data.id
+            }
+        })
+    })
+    .then(data => {
+        if (data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
 
-module.exports = {authenticate, authorize}
+
+module.exports = {authenticate, authorize, authorizeFavorites}

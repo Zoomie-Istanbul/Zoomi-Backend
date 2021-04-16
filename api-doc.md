@@ -158,3 +158,146 @@ Request Body:
   ]
 }
 ```
+```
+
+### POST /favorites
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+Request Body:
+{
+  garageId: Required | INT,
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "userId": 1,
+    "garageId": 1,
+    "updatedAt": "2021-04-16T10:30:59.486Z",
+    "createdAt": "2021-04-16T10:30:59.486Z",
+    "status": null
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+
+### GET /favorites
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 2,
+        "status": null,
+        "createdAt": "2021-04-16T10:30:59.486Z",
+        "updatedAt": "2021-04-16T10:30:59.486Z",
+        "userId": 1,
+        "garageId": 1,
+        "Garage": {
+            "id": 1,
+            "name": "ASTRA",
+            "image": null
+        }
+    }
+]
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+
+### GET /favorites/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "status": null,
+    "createdAt": "2021-04-16T10:30:59.486Z",
+    "updatedAt": "2021-04-16T10:30:59.486Z",
+    "userId": 1,
+    "garageId": 1,
+    "Garage": {
+        "id": 1,
+        "name": "ASTRA",
+        "image": null
+    }
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### DELETE /favorites/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "message": "item successfully deleted"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
