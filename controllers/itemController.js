@@ -15,7 +15,7 @@ class ItemController{
                 garageId : data.id,
                 name: request.body.name,
                 price: request.body.price,
-                status: 0
+                status: 1
             }
             Items.create(newItem)
             .then(data =>{
@@ -80,12 +80,16 @@ class ItemController{
             }
         })
         .then(data =>{
+            let garageData = data.dataValues.id
             Items.findOne({
                 where: {
                     id: +request.params.id
                 }
-            })
+            })  
+                
                 .then(data => {
+                    // console.log(data, "ini dataaa");
+                    if(garageData === data.dataValues.id){
                     let updateItem ={
                         name: (request.body.name) ? request.body.name : null,
                         price: (request.body.price) ? request.body.price : null
@@ -97,11 +101,15 @@ class ItemController{
                         returning: true
                     })
                     .then(data =>{
-                        response.status(201).json(data)
+                        response.status(201).json(data[1][0])
                     })
                     .catch(err=>{
                         next(err)
                     })
+                }
+                else{
+                    response.status(403).json({msg: "Unauthorized use"})
+                }
                 })
                 .catch(err => {
                     response.status(404).json({msg:"Item not found"})
@@ -113,21 +121,23 @@ class ItemController{
     }
 
     static delete(request, response, next){
-        
+        console.log("masuk sini");
         Garages.findOne({
             where: {
                 userId : +request.userData.id
             }
         })
         .then(data =>{
+            // console.log(+request.userData.id, "ini data coy");
             Items.findOne({
                 where: {
                     id: +request.params.id
                 }
             })
                 .then(data => {
+                    if(data.dataValues.garageId === +request.userData.id){
                     let updateItem ={
-                        status: (request.body.status) ? request.body.status : null,
+                        status: 0,
                     }
                     Items.update(updateItem, {
                         where: {
@@ -136,11 +146,15 @@ class ItemController{
                         returning: true
                     })
                     .then(data =>{
-                        response.status(201).json(data)
+                        response.status(201).json(data[1][0])
                     })
                     .catch(err=>{
                         next(err)
                     })
+                 }
+                 else{
+                    response.status(403).json({msg: "Unauthorized User"})
+                 }
                 })
                 .catch(err => {
                     response.status(404).json({msg:"Item not found"})

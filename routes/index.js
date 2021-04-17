@@ -18,7 +18,7 @@ router.post('/login',AuthController.login)
 //garage
 router.post('/garage',GarageController.create)
 router.put('/garage', authenticate, GarageController.update)
-router.get('/garage/:id', authenticate, GarageController.detail)
+router.get('/garage', authenticate, GarageController.profile)
 
 //item
 router.post('/item', authenticate, ItemController.create)

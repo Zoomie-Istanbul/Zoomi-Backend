@@ -485,16 +485,103 @@ Request Body:
 }
 ```
 
-### PATCH /transactions/:id
+### POST /garage
 ```
-Request Headers:
+
+Request Body:
+{
+  username: Required | STRING,
+  password: Required | STRING,
+  email: Required | STRING,
+  name: Required | STRING,
+  address: Required | STRING,
+  description: Required | STRING,
+}
+```
+
+
+* Success Response
+```
+- Status: 201
+- Response Body:
+{
+    "success": true,
+    "message": "Garage created",
+    "data": {
+        "id": 2,
+        "name": "bengkel jaya",
+        "status": 0,
+        "address": "jakarta utara",
+        "description": "Bengkel aman terpercaya",
+        "image": "",
+        "userId": 2,
+        "updatedAt": "2021-04-17T03:54:06.505Z",
+        "createdAt": "2021-04-17T03:54:06.505Z"
+    }
+}
+```
+* Error Response
+```
+- Status: 401
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PUT /garage
+```
+Request Head:
 {
   access_token: Required | Token,
 }
 ```
+
 Request Body:
 {
-  status : Required | INT
+  image: Required | STRING,
+  name: Required | STRING,
+  address: Required | STRING,
+  description: Required | STRING,
+}
+```
+
+
+* Success Response
+```
+- Status: 201
+- Response Body:
+{
+    "id": 2,
+    "name": "Bengkel jaya puol",
+    "status": 0,
+    "address": "surabaya",
+    "image": null,
+    "description": "Ini deskripsi baru",
+    "createdAt": "2021-04-17T03:54:06.505Z",
+    "updatedAt": "2021-04-17T03:55:58.961Z",
+    "userId": 2
+}
+```
+* Error Response
+```
+- Status: 401
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+```
+
+### GET /garage
+```
+Request Head:
+{
+  access_token: Required | Token,
 }
 ```
 
@@ -503,12 +590,215 @@ Request Body:
 - Status: 200
 - Response Body:
 {
-    "msg": "Status Updated!"
+    "id": 2,
+    "name": "Bengkel jaya puol",
+    "status": 0,
+    "address": "surabaya",
+    "image": null,
+    "description": "Ini deskripsi baru",
+    "createdAt": "2021-04-17T03:54:06.505Z",
+    "updatedAt": "2021-04-17T03:55:58.961Z",
+    "userId": 2
 }
 ```
 * Error Response
 ```
 - Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+### POST /item
+```
+
+Request Body:
+{
+  name: Required | STRING,
+  price: Required | INT,
+}
+```
+
+
+* Success Response
+```
+- Status: 201
+- Response Body:
+{
+    "success": true,
+    "message": "Items created",
+    "data": {
+        "id": 5,
+        "garageId": 2,
+        "name": "sadel",
+        "price": 2000,
+        "status": 1,
+        "updatedAt": "2021-04-17T03:59:59.064Z",
+        "createdAt": "2021-04-17T03:59:59.064Z"
+    }
+}
+```
+* Error Response
+```
+- Status: 401
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### GET /item:id
+```
+
+Request Head:
+{
+  access_token: Required | Token,
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 1,
+    "name": "palu",
+    "price": 2000,
+    "status": 0,
+    "createdAt": "2021-04-17T03:57:13.905Z",
+    "updatedAt": "2021-04-17T03:57:13.905Z",
+    "garageId": 2
+}
+```
+* Error Response
+```
+- Status: 404
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### GET /item
+```
+
+Request Head:
+{
+  access_token: Required | Token,
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 4,
+        "name": "ban",
+        "price": 2000,
+        "status": 1,
+        "createdAt": "2021-04-17T03:59:53.523Z",
+        "updatedAt": "2021-04-17T03:59:53.523Z",
+        "garageId": 2
+    },
+    {
+        "id": 5,
+        "name": "sadel",
+        "price": 2000,
+        "status": 1,
+        "createdAt": "2021-04-17T03:59:59.064Z",
+        "updatedAt": "2021-04-17T03:59:59.064Z",
+        "garageId": 2
+    }
+]
+```
+* Error Response
+```
+- Status: 404
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PUT /item/:id
+```
+Request Head:
+{
+  access_token: Required | Token,
+}
+```
+
+Request Body:
+{
+  name: Required | STRING,
+  price: Required | INT,
+}
+```
+
+
+* Success Response
+```
+- Status: 201
+- Response Body:
+{
+    "id": 2,
+    "name": "setrika",
+    "price": 4000,
+    "status": 1,
+    "createdAt": "2021-04-17T03:59:20.157Z",
+    "updatedAt": "2021-04-17T05:45:06.472Z",
+    "garageId": 2
+}
+```
+* Error Response
+```
+- Status: 401
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+```
+
+### PATCH /item/:id
+```
+Request Head:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 201
+- Response Body:
+{
+    "id": 1,
+    "name": "setrika",
+    "price": 4000,
+    "status": 0,
+    "createdAt": "2021-04-17T03:57:13.905Z",
+    "updatedAt": "2021-04-17T05:46:02.961Z",
+    "garageId": 2
+}
+```
+* Error Response
+```
+- Status: 401
 - Response Body:
 {
   errors: [

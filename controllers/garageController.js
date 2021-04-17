@@ -23,8 +23,9 @@ class GarageController{
             .then (data => {
                 let newGarage = {
                     name: request.body.name,
-                    status: request.body.status,
+                    status: 0,
                     address: request.body.address,
+                    description: request.body.description,
                     image: '',
                     userId: data.id
                 }
@@ -43,22 +44,16 @@ class GarageController{
             })
     }
 
-    static detail(request, response, next){
-        Garages.findOne({
+    static profile(request, response, next){
+        Garages.findAll({
             where: {
-                id: request.params.id
+                userId: request.userData.id
             }
         })
             .then(data => {
                 // console.log(request.userData.id, "ini request");
                 // console.log(request.params.id, "ini params");
-                if(+data.userId === +request.userData.id){
-                let returnData = data.dataValues
-                response.status(200).json(returnData)
-                }
-                else{
-                response.status(401).json({msg: "unauthorized user"})
-                }
+                response.status(200).json(data[0])
             })
             .catch(err => {
                 next(err)
@@ -69,7 +64,8 @@ class GarageController{
         let data ={
             name: (request.body.name) ? request.body.name : null,
             address: (request.body.address) ? request.body.address : null,
-            image: (request.body.image) ? request.body.image : null
+            image: (request.body.image) ? request.body.image : null,
+            description: (request.body.description) ? request.body.description : null
         }
 
         // console.log(request.userData, "ini user id");
