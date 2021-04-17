@@ -61,30 +61,49 @@ class GarageController{
     }
 
     static update(request, response, next){
-        let data ={
-            name: (request.body.name) ? request.body.name : null,
-            address: (request.body.address) ? request.body.address : null,
-            image: (request.body.image) ? request.body.image : null,
-            description: (request.body.description) ? request.body.description : null
-        }
 
-        Garages.update(data,{
-            where: {
-                userId: request.userData.id
-            },
-            returning: true
+        Garages.findOne({
+            where:{
+                userId : request.userData.id
+            }
         })
-            .then(data => {
-                if (data[0] === 1) {
-                    let returnData = data[1]
-                    response.status(200).json(returnData[0].dataValues)
-                }else{
-                    next({code: 404, msg: 'data not found'})
-                }
+        .then(data =>{
+            let result = data.dataValues
+            let temp = {
+                name : result.name,
+                address: result.address,
+                image : result.image,
+                description : result.description
+            }
+            let dataInput ={
+                name: (request.body.name) ? request.body.name : temp.name,
+                address: (request.body.address) ? request.body.address : temp.address,
+                image: (request.body.image) ? request.body.image : temp.image,
+                description: (request.body.description) ? request.body.description : temp.description
+            }
+    
+            Garages.update(dataInput,{
+                where: {
+                    userId: request.userData.id
+                },
+                returning: true
             })
-            .catch(err => {
-                next(err)
-            })
+                .then(data => {
+                    if (data[0] === 1) {
+                        let returnData = data[1]
+                        response.status(200).json(returnData[0].dataValues)
+                    }else{
+                        next({code: 404, msg: 'data not found'})
+                    }
+                })
+                .catch(err => {
+                    next(err)
+                })
+        })
+        .catch(err=>{
+            next(err)
+        })
+        
     }
 
     static status(request, response, next){
