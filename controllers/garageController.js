@@ -68,7 +68,6 @@ class GarageController{
             description: (request.body.description) ? request.body.description : null
         }
 
-        // console.log(request.userData, "ini user id");
         Garages.update(data,{
             where: {
                 userId: request.userData.id
@@ -76,6 +75,35 @@ class GarageController{
             returning: true
         })
             .then(data => {
+                if (data[0] === 1) {
+                    let returnData = data[1]
+                    response.status(200).json(returnData[0].dataValues)
+                }else{
+                    next({code: 404, msg: 'data not found'})
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static status(request, response, next){
+
+        let data ={
+            status: (+request.body.status) ? request.body.status : null,
+        }
+
+        console.log(request.userData.id);
+
+        // console.log(request.userData, "ini user id");
+        Garages.update(data,{
+            where: {
+                userId: +request.userData.id
+            },
+            returning: true
+        })
+            .then(data => {
+                console.log(data[0], 'ini dataaa');
                 if (data[0] === 1) {
                     let returnData = data[1]
                     response.status(200).json(returnData[0].dataValues)
