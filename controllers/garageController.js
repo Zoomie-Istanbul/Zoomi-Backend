@@ -15,7 +15,7 @@ class GarageController{
 
         
 
-        if (registerUser.password.legth < 6 ) {
+        if (registerUser.password.length < 6 ) {
             next({code: 400, msg: 'Password must be at least 6 characters'})
         }
 
