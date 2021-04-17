@@ -42,6 +42,7 @@ class UserController {
             if (request.body.image) {
                 data.image = request.body.image
             }
+            console.log(data, 'ini data update')
           Users.update(data,{
               where: {
                   id: request.userData.id

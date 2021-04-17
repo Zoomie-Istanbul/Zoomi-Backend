@@ -122,7 +122,7 @@ Request Headers:
   access_token: Required | Token,
 }
 ```
-
+```
 Request Body:
 {
   username: Optional | String,
@@ -131,7 +131,7 @@ Request Body:
   image: Optional | String,
 }
 ```
-
+```
 
 * Success Response
 ```
