@@ -5,7 +5,7 @@ class GarageController{
     static create(request, response, next) {
 
         let registerUser = {
-            username: request.body.username,
+            username: request.body.username.toLowerCase(),
             password: request.body.password,
             email: request.body.email,
             name: "garage owner",

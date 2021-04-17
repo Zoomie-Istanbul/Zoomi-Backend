@@ -6,7 +6,7 @@ const { Op } = require("sequelize");
 class AuthController {
     static register(request, response, next) {
         let registerData = {
-            username: (request.body.username) ? request.body.username : null,
+            username: (request.body.username.toLowerCase()) ? request.body.username : null,
             password: (request.body.password) ? request.body.password : null,
             email: (request.body.email) ? request.body.email : null,
             name: (request.body.name) ? request.body.name : null,
@@ -33,7 +33,7 @@ class AuthController {
         }
         Users.findOne({
             where: {
-                [Op.or]: [{ username: formData.username }, { email: formData.username }]
+                [Op.or]: [{ username: formData.username.toLowerCase() }, { email: formData.username }]
             },
         })
             .then(data => {
