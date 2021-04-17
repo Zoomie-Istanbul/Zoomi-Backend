@@ -18,8 +18,10 @@ router.post('/login',AuthController.login)
 //garage
 router.post('/garage',GarageController.create)
 router.put('/garage', authenticate, GarageController.update)
-router.get('/garage', authenticate, GarageController.profile)
+router.get('/garageProfile', authenticate, GarageController.profile)
 router.patch('/garage', authenticate, GarageController.status)
+router.get('/garage', authenticate, GarageController.allGarage)
+router.get('/garage/:id', authenticate, GarageController.garageDetail)
 
 //item
 router.post('/item', authenticate, ItemController.create)

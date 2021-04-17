@@ -134,6 +134,32 @@ class GarageController{
                 next(err)
             })
     }
+
+    static allGarage(request, response, next){
+        Garages.findAll()
+            .then(data => {
+                // console.log(request.userData.id, "ini request");
+                // console.log(request.params.id, "ini params");
+                response.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static garageDetail(request, response, next){
+        Garages.findOne({
+            where: {
+                id : +request.params.id
+            }
+        })
+            .then(data => {
+                response.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
 }
 
 module.exports = GarageController
