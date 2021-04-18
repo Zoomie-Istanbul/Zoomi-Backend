@@ -30,7 +30,7 @@ class chatController {
     }
     static create(request, response, next){
         let data = {
-            transactionId: request.body.transactionId,
+            transactionId: request.params.id,
             message: request.body.message
         }
         if (request.body.garageId) {

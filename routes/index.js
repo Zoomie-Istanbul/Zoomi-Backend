@@ -9,6 +9,7 @@ const Favorites = require('./favorites.js')
 const Transactions = require('./transactions.js')
 const Items = require('./items.js')
 const Garages = require('./garages.js')
+const Chats = require('./chats.js')
 
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
@@ -24,6 +25,7 @@ router.use('/garage/', Garages)
 router.use('/favorites/', Favorites)
 router.use('/transactions/', Transactions)
 router.use('/item/', Items)
+router.use('/chats/', Chats)
 
 // router.use(authenticate)
 
