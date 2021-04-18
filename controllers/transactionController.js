@@ -66,6 +66,7 @@ class TransactionController {
             date: new Date,
             status: 0,
             price: 0,
+            description: request.body.description,
         }
         console.log(data,'ini data')
         Model.create(data)
@@ -80,10 +81,15 @@ class TransactionController {
     static update(request, response, next){
         let data = {
             status: request.body.status,
-            price: request.body.price,
+        }
+        if (request.body.price) {
+            data.price = request.body.price //optional
         }
         if (request.body.date) {
             data.date = request.body.date //optional
+        }
+        if (request.body.description) {
+            data.description = request.body.description //optional
         }
         Model.update(data,{
             where: {
