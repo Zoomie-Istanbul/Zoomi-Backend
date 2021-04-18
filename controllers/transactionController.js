@@ -19,12 +19,10 @@ class TransactionController {
           ],
           include:[
             {
-              model: Users,
-              attributes: ['id','name','image']
+              model: Users
             },
             {
-                model: Garages,
-                attributes: ['id','name','image']
+                model: Garages
               },
         ],
           where: where
@@ -43,12 +41,10 @@ class TransactionController {
           ],
           include:[
             {
-              model: Users,
-              attributes: ['id','name','image']
+              model: Users
             },
             {
-                model: Garages,
-                attributes: ['id','name','image']
+                model: Garages
             },
         ],
           where: {
