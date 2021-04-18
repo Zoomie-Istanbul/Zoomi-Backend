@@ -1,48 +1,25 @@
-const Model = require('../models').Favorites
+const Model = require('../models').Chats
 const {Users, Garages} = require('../models')
 
-class favoriteController {
+class chatController {
     static index(request, response, next){
-        let where = {}
-        if (request.body.garageId) {
-            where.garageId = request.body.garageId
-        }else{
-            where.userId = request.userData.id
-        }
         Model.findAll({
           order: [
             ['id', 'DESC']
           ],
           include:[
             {
-              model: Users
+              model: Users,
+              attributes: ['id','name','image']
             },
             {
-                model: Garages
-              },
-        ],
-          where: where
-        })
-            .then(data => {
-                response.status(200).json(data)
-            })
-            .catch(err => {
-                next(err)
-            })
-    }
-    static detail(request, response, next){
-        Model.findOne({
-            where: {
-                id: request.params.id
+                model: Garages,
+                attributes: ['id','name','image']
             },
-            include:[
-                {
-                  model: Users
-                },
-                {
-                    model: Garages
-                  },
-            ],
+        ],
+          where: {
+              transactionId: request.params.id
+          }
         })
             .then(data => {
                 response.status(200).json(data)
@@ -53,8 +30,13 @@ class favoriteController {
     }
     static create(request, response, next){
         let data = {
-            userId: request.userData.id,
-            garageId: request.body.garageId,
+            transactionId: request.params.id,
+            message: request.body.message
+        }
+        if (request.body.garageId) {
+            data.garageId = request.body.garageId
+        }else{
+            data.userId = request.userData.id
         }
         Model.create(data)
             .then(data => {
@@ -80,4 +62,4 @@ class favoriteController {
     }
 }
 
-module.exports = favoriteController
+module.exports = chatController

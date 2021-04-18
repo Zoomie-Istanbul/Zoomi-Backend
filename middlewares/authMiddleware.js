@@ -1,5 +1,6 @@
-const { Users, Favorites, Garages, Transactions } = require('../models')
+const { Users, Favorites, Garages, Transactions, Chats } = require('../models')
 const { verifyToken } = require('../helpers/jwtHelper.js')
+const { Op } = require("sequelize");
 
 const authenticate = (request, response, next) => {
     if (request.headers.access_token) {
@@ -118,4 +119,94 @@ const authorizeTransaction = (request, response, next) => {
 }
 
 
-module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction}
+const authorizeCreateChats = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+        }
+    })
+    .then(data => {
+        if (data.roles == 'user') {   
+            return Transactions.findOne({
+                where: {
+                    id: request.params.id,
+                    userId: data.id
+                }
+            })
+        }else{
+            return (
+                Garages.findOne({
+                    where: {
+                        userId: data.id
+                    }
+                })
+                .then(datas => {
+                    return Transactions.findOne({
+                        where: {
+                            id: request.params.id,
+                            garageId: datas.id
+                        }
+                    })
+                })
+            )
+        }
+    })
+    .then(data => {
+        if (data && data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            // console.log(data,'ini data akhir')
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
+
+const authorizeDeleteChats = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+        }
+    })
+    .then(data => {
+        if (data.roles == 'user') {   
+            return Chats.findOne({
+                where: {
+                    id: request.params.id,
+                    userId: data.id
+                }
+            })
+        }else{
+            return (
+                Garages.findOne({
+                    where: {
+                        userId: data.id
+                    }
+                })
+                .then(datas => {
+                    return Chats.findOne({
+                        where: {
+                            id: request.params.id,
+                            garageId: datas.id
+                        }
+                    })
+                })
+            )
+        }
+    })
+    .then(data => {
+        if (data && data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
+
+
+module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction, authorizeCreateChats, authorizeDeleteChats}

@@ -806,3 +806,130 @@ Request Head:
   ]
 }
 ```
+
+
+### GET /chats/:id_transaction
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 2,
+        "message": "ada yang bisa saya bantu ?",
+        "status": null,
+        "createdAt": "2021-04-18T05:16:32.301Z",
+        "updatedAt": "2021-04-18T05:16:32.301Z",
+        "transactionId": 1,
+        "userId": null,
+        "garageId": 1,
+        "User": null,
+        "Garage": {
+            "id": 1,
+            "name": "astra",
+            "image": null
+        }
+    },
+    {
+        "id": 1,
+        "message": "halo",
+        "status": null,
+        "createdAt": "2021-04-18T05:14:18.570Z",
+        "updatedAt": "2021-04-18T05:14:18.570Z",
+        "transactionId": 1,
+        "userId": 1,
+        "garageId": null,
+        "User": {
+            "id": 1,
+            "name": "pepi",
+            "image": null
+        },
+        "Garage": null
+    }
+]
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### POST /chats/:id_transaction
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  message: Required | String,
+  garageId: Optional | Integer | if the sender is garages. garageId is needed,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "transactionId": 1,
+    "message": "ada yang bisa saya bantu ?",
+    "garageId": 1,
+    "updatedAt": "2021-04-18T05:16:32.301Z",
+    "createdAt": "2021-04-18T05:16:32.301Z",
+    "status": null,
+    "userId": null
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### DELETE /chats/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "message": "item successfully deleted"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```

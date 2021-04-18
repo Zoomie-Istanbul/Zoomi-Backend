@@ -121,7 +121,7 @@ class ItemController{
     }
 
     static delete(request, response, next){
-        console.log("masuk sini");
+        // console.log("masuk sini");
         Garages.findOne({
             where: {
                 userId : +request.userData.id

@@ -23,7 +23,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Chats.init({
-    message: DataTypes.TEXT,
+    message: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Message cant be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'Message cant be empty'
+        }
+      }
+    },
     status: DataTypes.INTEGER
   }, {
     sequelize,

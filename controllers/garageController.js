@@ -62,25 +62,21 @@ class GarageController{
 
     static update(request, response, next){
 
-        Garages.findOne({
-            where:{
-                userId : request.userData.id
-            }
-        })
-        .then(data =>{
-            let result = data.dataValues
-            let temp = {
-                name : result.name,
-                address: result.address,
-                image : result.image,
-                description : result.description
-            }
-            let dataInput ={
-                name: (request.body.name) ? request.body.name : temp.name,
-                address: (request.body.address) ? request.body.address : temp.address,
-                image: (request.body.image) ? request.body.image : temp.image,
-                description: (request.body.description) ? request.body.description : temp.description
-            }
+
+
+        let data ={}
+        if (request.body.name) {
+            data.name= request.body.name
+        }
+        if (request.body.address) {
+            data.address= request.body.address
+        }
+        if (request.body.image) {
+            data.image= request.body.image
+        }
+        if (request.body.description) {
+            data.description= request.body.description
+        }
     
             Garages.update(dataInput,{
                 where: {
