@@ -19,8 +19,7 @@ class favoriteController {
               attributes: ['id','name','image']
             },
             {
-                model: Garages,
-                attributes: ['id','name','image']
+                model: Garages
               },
         ],
           where: where
@@ -43,8 +42,7 @@ class favoriteController {
                   attributes: ['id','name','image']
                 },
                 {
-                    model: Garages,
-                    attributes: ['id','name','image']
+                    model: Garages
                   },
             ],
         })
