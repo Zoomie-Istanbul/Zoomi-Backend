@@ -61,14 +61,20 @@ class GarageController{
     }
 
     static update(request, response, next){
-        let data ={
-            name: (request.body.name) ? request.body.name : null,
-            address: (request.body.address) ? request.body.address : null,
-            image: (request.body.image) ? request.body.image : null,
-            description: (request.body.description) ? request.body.description : null
+        let data ={}
+        if (request.body.name) {
+            data.name= request.body.name
+        }
+        if (request.body.address) {
+            data.address= request.body.address
+        }
+        if (request.body.image) {
+            data.image= request.body.image
+        }
+        if (request.body.description) {
+            data.description= request.body.description
         }
 
-        // console.log(request.userData, "ini user id");
         Garages.update(data,{
             where: {
                 userId: request.userData.id

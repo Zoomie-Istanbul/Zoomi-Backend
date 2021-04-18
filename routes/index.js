@@ -4,10 +4,11 @@ const { authenticate } = require('../middlewares/authMiddleware')
 const GarageController = require('../controllers/garageController')
 const AuthController = require('../controllers/authController.js')
 const UserController = require('../controllers/userController.js')
-const ItemController = require('../controllers/itemController')
 const Users = require('./users.js')
 const Favorites = require('./favorites.js')
 const Transactions = require('./transactions.js')
+const Items = require('./items.js')
+const Garages = require('./garages.js')
 
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
@@ -16,20 +17,13 @@ router.patch('/change-password', authenticate, UserController.changePassword)
 router.post('/login',AuthController.login)
 
 //garage
-router.post('/garage',GarageController.create)
-router.put('/garage', authenticate, GarageController.update)
-router.get('/garage', authenticate, GarageController.profile)
 
-//item
-router.post('/item', authenticate, ItemController.create)
-router.get('/item/:id', authenticate, ItemController.detail)
-router.get('/item', authenticate, ItemController.findAll)
-router.put('/item/:id', authenticate, ItemController.update)
-router.patch('/item/:id', authenticate, ItemController.delete)
 
 router.use('/user/', Users)
+router.use('/garage/', Garages)
 router.use('/favorites/', Favorites)
 router.use('/transactions/', Transactions)
+router.use('/item/', Items)
 
 // router.use(authenticate)
 

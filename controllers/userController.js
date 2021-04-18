@@ -1,5 +1,7 @@
 const { Users } = require('../models')
 const {hash} = require('../helpers/passwordHelper.js')
+// const imgur = require('imgur');
+const axios = require('axios')
 
 class UserController {
     static index(request, response, next){
@@ -40,6 +42,16 @@ class UserController {
                 data.email = request.body.email
             }
             if (request.body.image) {
+                // axios({
+                //     method: 'post',
+                //     url: 'https://api.imgur.com/3/image',
+                //     data: {
+                //         image: request.body.image
+                //     }
+                //   })
+                //   .then(data => {
+
+                //   })
                 data.image = request.body.image
             }
           Users.update(data,{
