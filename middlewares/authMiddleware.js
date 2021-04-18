@@ -141,11 +141,10 @@ const authorizeCreateChats = (request, response, next) => {
                     }
                 })
                 .then(datas => {
-                    console.log(datas,'datas')
                     return Transactions.findOne({
                         where: {
                             id: request.params.id,
-                            garageId: datas.garageId
+                            garageId: datas.id
                         }
                     })
                 })
@@ -156,6 +155,7 @@ const authorizeCreateChats = (request, response, next) => {
         if (data && data.dataValues.id == request.params.id) {
             next()
         }else{
+            // console.log(data,'ini data akhir')
             next({code:403, msg: 'Unauthorized'})
         }
     })
@@ -165,34 +165,31 @@ const authorizeCreateChats = (request, response, next) => {
 }
 
 const authorizeDeleteChats = (request, response, next) => {
-    if (request) {
-        
-    }
-    Chats.findOne({
+    Users.findOne({
         where: {
-            id: request.params.id,
+            id: request.userData.id,
         }
     })
     .then(data => {
         if (data.roles == 'user') {   
             return Chats.findOne({
                 where: {
-                    id: request.body.transactionId,
-                    userId: request.userData.userId
+                    id: request.params.id,
+                    userId: data.id
                 }
             })
         }else{
             return (
                 Garages.findOne({
                     where: {
-                        userId: request.userData.id
+                        userId: data.id
                     }
                 })
                 .then(datas => {
                     return Chats.findOne({
                         where: {
-                            id: request.body.transactionId,
-                            garageId: request.data.garageId
+                            id: request.params.id,
+                            garageId: datas.id
                         }
                     })
                 })
@@ -200,7 +197,7 @@ const authorizeDeleteChats = (request, response, next) => {
         }
     })
     .then(data => {
-        if (data && data.dataValues.id == request.body.transactionId) {
+        if (data && data.dataValues.id == request.params.id) {
             next()
         }else{
             next({code:403, msg: 'Unauthorized'})
