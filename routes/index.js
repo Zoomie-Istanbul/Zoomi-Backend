@@ -14,6 +14,7 @@ const Chats = require('./chats.js')
 router.post('/register',AuthController.register)
 router.post('/login',AuthController.login)
 router.put('/update-profile', authenticate, UserController.update)
+router.put('/upload-avatar', authenticate, UserController.uploadAvatar)
 router.patch('/change-password', authenticate, UserController.changePassword)
 router.post('/login',AuthController.login)
 

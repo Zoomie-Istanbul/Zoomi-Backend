@@ -1,6 +1,6 @@
 const { Users } = require('../models')
 const {hash} = require('../helpers/passwordHelper.js')
-// const imgur = require('imgur');
+const imgur = require('imgur');
 const axios = require('axios')
 
 class UserController {
@@ -30,7 +30,7 @@ class UserController {
                 next(err)
             })
     }
-    static update(request, response, next){
+    static async    update(request, response, next){
           let data = {}
             if (request.body.username) {
                 data.username = request.body.username
@@ -42,6 +42,8 @@ class UserController {
                 data.email = request.body.email
             }
             if (request.body.image) {
+                // let images = await this.uploadAvatar(request.body.image)
+                // console.log(images)
                 // axios({
                 //     method: 'post',
                 //     url: 'https://api.imgur.com/3/image',
@@ -120,6 +122,37 @@ class UserController {
                 })
         }else{
             next({code: 404, msg: 'invalid id'})
+        }
+      }
+      static async uploadAvatar(req, res, next) {
+        try {
+          if (req.body.image.mimetype !== "text/plain" && req.body.image.length !== 0) {
+            // const encoded_avatar = req.body.image.buffer.toString("base64");
+            // const image = await imgur.uploadBase64();
+            imgur
+            .uploadBase64(req.body.image)
+            .then((json) => {
+                console.log(json.link);
+                console.log(json,'ini data');
+            })
+            .catch((err) => {
+                console.error(err,'error');
+            });
+
+            // console.log(image.data)
+            // const data = await TukangModel.updateAvatar({
+            //   id: req.params.id,
+            //   avatar_img: image.data,
+            // });
+            // res.status(201).json(data.value.avatar_img);
+          } else {
+            throw {
+              status: 400,
+              message: "Please upload the image",
+            };
+          }
+        } catch (error) {
+          next(error);
         }
       }
 }
