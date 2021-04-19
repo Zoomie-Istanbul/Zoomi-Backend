@@ -2,6 +2,8 @@ const { Users } = require('../models')
 const {hash} = require('../helpers/passwordHelper.js')
 const imgur = require('imgur');
 const axios = require('axios')
+const base64Img = require('base64-img')
+var fs = require('fs');
 
 class UserController {
     static index(request, response, next){
@@ -30,7 +32,7 @@ class UserController {
                 next(err)
             })
     }
-    static async    update(request, response, next){
+    static async update(request, response, next){
           let data = {}
             if (request.body.username) {
                 data.username = request.body.username
@@ -42,6 +44,7 @@ class UserController {
                 data.email = request.body.email
             }
             if (request.body.image) {
+
                 // let images = await this.uploadAvatar(request.body.image)
                 // console.log(images)
                 // axios({
@@ -54,8 +57,10 @@ class UserController {
                 //   .then(data => {
 
                 //   })
-                data.image = request.body.image
+                console.log(request.body.image,'ini image')
+                // data.image = request.body.image
             }
+            console.log('halo ini masuk')
           Users.update(data,{
               where: {
                   id: request.userData.id
@@ -126,31 +131,18 @@ class UserController {
       }
       static async uploadAvatar(req, res, next) {
         try {
-          if (req.body.image.mimetype !== "text/plain" && req.body.image.length !== 0) {
-            // const encoded_avatar = req.body.image.buffer.toString("base64");
-            // const image = await imgur.uploadBase64();
-            imgur
-            .uploadBase64(req.body.image)
-            .then((json) => {
-                console.log(json.link);
-                console.log(json,'ini data');
+            Users.update({image: req.file.link},{
+                where: {
+                    id: req.userData.id
+                },
             })
-            .catch((err) => {
-                console.error(err,'error');
-            });
-
-            // console.log(image.data)
-            // const data = await TukangModel.updateAvatar({
-            //   id: req.params.id,
-            //   avatar_img: image.data,
-            // });
-            // res.status(201).json(data.value.avatar_img);
-          } else {
-            throw {
-              status: 400,
-              message: "Please upload the image",
-            };
-          }
+            .then(data => {
+                if (data == 1) {
+                    res.status(200).json({avatar: req.file.link,message: 'avatar successfully updated'})
+                }else{
+                    next({code: 400, msg: 'data not found'})
+                }
+            })
         } catch (error) {
           next(error);
         }

@@ -160,6 +160,41 @@ Request Body:
 ```
 ```
 
+### PATCH /update-profile
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  image: Required | File
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+  avatar: <link avatar>,
+  message: 'avatar successfully updated'
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
 ### POST /favorites
 ```
 Request Headers:
