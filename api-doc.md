@@ -132,7 +132,7 @@ Request Body:
 }
 ```
 
-
+```
 * Success Response
 ```
 - Status: 200
@@ -158,6 +158,40 @@ Request Body:
   ]
 }
 ```
+
+### PATCH /upload-avatar
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  image: Required | File
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+  avatar: <link avatar>,
+  message: 'avatar successfully updated'
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
 ```
 
 ### POST /favorites
@@ -921,6 +955,41 @@ Request Headers:
 - Response Body:
 {
     "message": "item successfully deleted"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PATCH /garage/upload-avatar
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  image: Required | File
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+  avatar: <link avatar>,
+  message: 'avatar successfully updated'
 }
 ```
 * Error Response
