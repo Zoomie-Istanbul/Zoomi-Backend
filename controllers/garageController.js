@@ -124,6 +124,25 @@ class GarageController{
             })
     }
 
+    static async uploadAvatar(req, res, next) {
+        try {
+            Garages.update({image: req.file.link},{
+                where: {
+                    userId: +request.userData.id
+                },
+            })
+            .then(data => {
+                if (data == 1) {
+                    res.status(200).json({avatar: req.file.link,message: 'avatar successfully updated'})
+                }else{
+                    next({code: 400, msg: 'data not found'})
+                }
+            })
+        } catch (error) {
+          next(error);
+        }
+      }
+
     static allGarage(request, response, next){
         Garages.findAll()
             .then(data => {
