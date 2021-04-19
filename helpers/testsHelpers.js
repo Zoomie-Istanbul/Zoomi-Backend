@@ -1,4 +1,5 @@
-const {Garages, Users} = require('../models')
+const {Garages, Users, Favorites} = require('../models')
+// const favorites = require('../models/favorites')
 
 const deleteUsers = () => {
     Users.destroy({
@@ -14,6 +15,18 @@ const deleteUsers = () => {
 }
 const deleteGarage = () => {
     Garages.destroy({
+        where: {}
+    })
+    .then(data => {
+        return 1
+    })
+    .catch(err => {
+        return 0
+    })
+}
+
+const deleteFavorite = () => {
+    Favorites.destroy({
         where: {}
     })
     .then(data => {
@@ -67,4 +80,4 @@ function createGarage () {
     }
 
 
-module.exports = { deleteUsers, deleteGarage, createGarage, createUser }
+module.exports = { deleteUsers, deleteGarage, createGarage, createUser, deleteFavorite }

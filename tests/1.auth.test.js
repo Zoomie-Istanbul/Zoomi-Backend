@@ -56,7 +56,7 @@ describe('testing post user /login',() => {
                 }
             })
     })
-    it('Wrong Email',(done) => {
+    it('Wrong Email and password',(done) => {
         let reqBody = {
             username: 'admin3@mail.com',
             password: '1234'
@@ -73,9 +73,10 @@ describe('testing post user /login',() => {
                 }
             })
     })
-    it('Wrong password',(done) => {
+
+    it('Wrong password, correct email',(done) => {
         let reqBody = {
-            username: 'admin@mail.com',
+            username: 'testmail@mail.com',
             password: '12344'
         }
         request(app)
@@ -90,10 +91,11 @@ describe('testing post user /login',() => {
                 }
             })
     })
+
     it('Login without password',(done) => {
         let reqBody = {
-            username: 'admin@mail.com',
-            // password: '12344'
+            email: 'testmail@mail.com',
+            password: null
         }
         request(app)
             .post('/login')
@@ -107,6 +109,61 @@ describe('testing post user /login',() => {
                 }
             })
     })
+
+    it('Correct password, wrong email',(done) => {
+        let reqBody = {
+            email: 'emailbodong@mail.com',
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Blank password and email',(done) => {
+        let reqBody = {
+            email: null,
+            password: null
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Login without email or username',(done) => {
+        let reqBody = {
+            email: null,
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
 })
 
 describe('testing post garage /login',() => {
@@ -184,6 +241,59 @@ describe('testing post garage /login',() => {
             })
     })
 
+    it('Garage login with correct email and wrong password',(done) => {
+        let reqBody = {
+            username: 'testnotadmin@mail.com',
+            password: 'passwordasal'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Garage login with correct email and wrong password',(done) => {
+        let reqBody = {
+            username: 'emailasal@mail.com',
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Garage login with wrong email and wrong password',(done) => {
+        let reqBody = {
+            username: 'emailasal@mail.com',
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
 })
 
 
