@@ -75,7 +75,7 @@ class GarageController{
             data.description= request.body.description
         }
     
-            Garages.update(dataInput,{
+            Garages.update(data,{
                 where: {
                     userId: request.userData.id
                 },
