@@ -132,7 +132,7 @@ Request Body:
 }
 ```
 
-
+```
 * Success Response
 ```
 - Status: 200
@@ -158,6 +158,40 @@ Request Body:
   ]
 }
 ```
+
+### PATCH /upload-avatar
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  image: Required | File
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+  avatar: <link avatar>,
+  message: 'avatar successfully updated'
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
 ```
 
 ### POST /favorites
@@ -329,6 +363,7 @@ Request Body:
     "date": "2021-04-16T16:12:11.547Z",
     "status": 0,
     "price": 0,
+    "description: "",
     "updatedAt": "2021-04-16T16:12:11.547Z",
     "createdAt": "2021-04-16T16:12:11.547Z"
 }
@@ -372,6 +407,7 @@ Request Body:
         "updatedAt": "2021-04-16T16:12:11.547Z",
         "garageId": 3,
         "userId": 1,
+        "description: "",
         "User": {
             "id": 1,
             "name": "pepi",
@@ -414,6 +450,7 @@ Request Headers:
     "date": "2021-04-16T16:12:11.547Z",
     "status": 0,
     "price": 0,
+    "description: "",
     "createdAt": "2021-04-16T16:12:11.547Z",
     "updatedAt": "2021-04-16T16:12:11.547Z",
     "garageId": 3,
@@ -454,6 +491,7 @@ Request Body:
   status : Required | INT
   price : Required | INT
   date : Optional | DATE
+  description: Optional | STRING
 }
 ```
 
@@ -467,6 +505,7 @@ Request Body:
         "date": "2021-04-16T16:12:11.547Z",
         "status": 1,
         "price": 3000,
+        "description: "",
         "createdAt": "2021-04-16T16:12:11.547Z",
         "updatedAt": "2021-04-16T17:00:53.960Z",
         "garageId": 3,
@@ -928,6 +967,41 @@ Request Headers:
 - Response Body:
 {
     "message": "item successfully deleted"
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### PATCH /garage/upload-avatar
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Body:
+{
+  image: Required | File
+}
+```
+
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+  avatar: <link avatar>,
+  message: 'avatar successfully updated'
 }
 ```
 * Error Response
