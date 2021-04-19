@@ -43,24 +43,6 @@ class UserController {
             if (request.body.email) {
                 data.email = request.body.email
             }
-            if (request.body.image) {
-
-                // let images = await this.uploadAvatar(request.body.image)
-                // console.log(images)
-                // axios({
-                //     method: 'post',
-                //     url: 'https://api.imgur.com/3/image',
-                //     data: {
-                //         image: request.body.image
-                //     }
-                //   })
-                //   .then(data => {
-
-                //   })
-                console.log(request.body.image,'ini image')
-                // data.image = request.body.image
-            }
-            console.log('halo ini masuk')
           Users.update(data,{
               where: {
                   id: request.userData.id
@@ -93,8 +75,6 @@ class UserController {
             })
                 .then(data => {
                     if (data[0] === 1) {
-                        // let returnData = data[1]
-                        // delete returnData[0].dataValues.password
                         response.status(200).json({msg : 'password updated'})
                     }else{
                         next({code: 404, msg: 'data not found'})

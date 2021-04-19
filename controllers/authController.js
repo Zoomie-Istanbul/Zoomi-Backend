@@ -35,6 +35,11 @@ class AuthController {
             where: {
                 [Op.or]: [{ username: formData.username.toLowerCase() }, { email: formData.username }]
             },
+            include : [
+                {
+                    model: Garages
+                },
+            ]
         })
             .then(data => {
                 if (data) {
