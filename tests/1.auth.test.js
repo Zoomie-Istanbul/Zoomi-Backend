@@ -37,10 +37,10 @@ beforeAll(function(done) {
     })
 })
 
-describe('testing post /login',() => {
-    it('should return response with status 200',(done) => {
+describe('testing post user /login',() => {
+    it('Successfully user login ',(done) => {
         let reqBody = {
-            username: 'testnotadmin@mail.com',
+            username: 'testmail@mail.com',
             password: 'tester'
         }
         request(app)
@@ -56,7 +56,7 @@ describe('testing post /login',() => {
                 }
             })
     })
-    it('should return response with status 400',(done) => {
+    it('Wrong Email',(done) => {
         let reqBody = {
             username: 'admin3@mail.com',
             password: '1234'
@@ -73,7 +73,7 @@ describe('testing post /login',() => {
                 }
             })
     })
-    it('should return response with status 400',(done) => {
+    it('Wrong password',(done) => {
         let reqBody = {
             username: 'admin@mail.com',
             password: '12344'
@@ -90,7 +90,7 @@ describe('testing post /login',() => {
                 }
             })
     })
-    it('should return response with status 400',(done) => {
+    it('Login without password',(done) => {
         let reqBody = {
             username: 'admin@mail.com',
             // password: '12344'
@@ -108,6 +108,84 @@ describe('testing post /login',() => {
             })
     })
 })
+
+describe('testing post garage /login',() => {
+
+    it('Garage login without password',(done) => {
+        let reqBody = {
+            username: 'testnotadmin@mail.com',
+            // password: '12344'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Successfully garage login ',(done) => {
+        let reqBody = {
+            username: 'testnotadmin@mail.com',
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    // console.log(response.body)
+                    expect(response.status).toEqual(200)
+                    done()
+                }
+            })
+    })
+
+    it('Garage login without username/email',(done) => {
+        let reqBody = {
+            // username: 'testnotadmin@mail.com',
+            password: 'tester'
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+    it('Garage login without username/email and password',(done) => {
+        let reqBody = {
+            username: '',
+            password: ''
+        }
+        request(app)
+            .post('/login')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
+                    done()
+                }
+            })
+    })
+
+})
+
 
 
 

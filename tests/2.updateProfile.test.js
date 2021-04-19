@@ -1,10 +1,12 @@
 const express = require('express')
 const request = require('supertest')
-
 const app = require('../app.js')
 const {deleteUsers, deleteGarage, createGarage, createUser} = require('../helpers/testsHelpers.js')
 const {sign} = require('../helpers/jwtHelper.js')
-const {Users} = require('../models')
+const {Users, Garages} = require('../models')
+const { response } = require('express')
+const { JsonWebTokenError } = require('jsonwebtoken')
+
 
 let garageToken = ''
 let token = ''
@@ -33,7 +35,8 @@ beforeAll(function(done) {
                 roles: 'garage'
             })
         })
-        .then(data => {
+        .then(({dataValues}) => {
+            let data = dataValues
             let tokenMaterial = {
                 name: data.name,
                 email: data.email,
@@ -46,61 +49,102 @@ beforeAll(function(done) {
                 userId: data.id,
                 address: 'testAddress'
             })
-            // console.log(data,'Data')
         })
-        .then(data => {
-                return 1
+        .then(() =>{
+            done()
         })
+        // .then(data => {
+        //         return 1
+        // })
         .catch(err => {
             return 0
         })
-})
+        // done()
+}, 30000)
+
 
 describe('testing update profile',() => {
-    it('tidak menyertakan akses token',async (done) => {
-        jest.setTimeout(30000);
-        await request(app)
+
+    it('should return response with status 200', (done) => {
+    
+        request(app)
+       .post('/login')
+       .send({
+           username: 'testUserNotGarage',
+           password : 'tester',
+       })
+       .set('Accept', 'application/json')
+       .then((response) =>{
+           const { body, status } = response
+           expect(status).toEqual(200)
+           done()
+       })
+       .catch(err =>{
+           console.log(err, "ini error");
+           done(err)
+       })
+})
+
+    it('Successfully update profile', (done) => {
+    
+        request(app)
+       .put('/update-profile')
+       .set('access_token', token)
+       .send({
+           username: 'test',
+           email : 'emailbaru@mail.com',
+       })
+       .set('Accept', 'application/json')
+       .then((response) =>{
+           const { body, status } = response
+           expect(status).toEqual(200)
+           done()
+       })
+       .catch(err =>{
+           console.log(err, "ini error");
+           done(err)
+       })
+})
+
+    it('Update profile without token', (done) => {
+    
+             request(app)
             .put('/update-profile')
-            // .post('access_token', adminToken)
             .send({
                 username: 'test',
                 name: 'testName',
             })
-            .end((err, response) => {
-                if (err) {
-                    done(err)
-                    return 0
-                }else{
-                    console.log(response, 'ini response')
-                    console.log(response.status,' ini status')
-                    expect(response.status).toEqual(400)
-                    done()
-                    return 1
-                }
+            .set('Accept', 'application/json')
+            .then((response) =>{
+                const { body, status } = response
+                expect(status).toEqual(400)
+                done()
+            })
+            .catch(err =>{
+                console.log(err, "ini error");
+                done(err)
             })
     })
 
-    it('field diisi tipe data tidak sesuai',async (done) => {
-        jest.setTimeout(30000);
-        await request(app)
-            .put('/update-profile')
-            .set('access_token', token)
-            .send({
-                username: 'test',
-                email: 'rerere@gmail.com',
-                name: 'testName',
-            })
-            .end((err, response) => {
-                if (err) {
-                    done(err)
-                    return 0
-                }else{
-                    // console.log(response.body)
-                    expect(response.status).toEqual(400)
-                    done()
-                    return 1
-                }
-            })
+    it('Invalid email format', (done) => {
+    
+        request(app)
+        .put('/update-profile')
+        .set('access_token', token)
+        .send({
+            username: 'test',
+            email : 'emailbodong',
+        })
+        .set('Accept', 'application/json')
+        .then((response) =>{
+            const { body, status } = response
+            expect(status).toEqual(400)
+            done()
+        })
+        .catch(err =>{
+            console.log(err, "ini error");
+            done(err)
+        })
     })
 })
 

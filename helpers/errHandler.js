@@ -9,7 +9,7 @@ const errHandler = (err, request, response, next) => {
         }else if(err.length > 0){
             response.status(400).json({errors: [err.errors[0].message]})
         }else{
-            console.log()
+            // console.log()
             response.status(500).json({errors: [err]})
         }
     }else{
