@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Chats.belongsTo(models.Transactions,{
-        foreignKey: 'transactionId'
-      })
       Chats.belongsTo(models.Users,{
         foreignKey: 'userId'
       })
@@ -37,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    status: DataTypes.INTEGER
+    sender: DataTypes.STRING,
+    status: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Chats',

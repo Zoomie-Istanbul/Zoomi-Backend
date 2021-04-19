@@ -2,7 +2,23 @@ const Model = require('../models').Chats
 const {Users, Garages} = require('../models')
 
 class chatController {
-    static index(request, response, next){
+    static async index(request, response, next){
+        let where = {}
+        if (request.userData.roles == 'user') {
+            where.userId = request.userData.id
+            where.garageId = request.params.id
+        }else{
+            await (Garages.findOne({
+                where: {
+                    userId: request.userData.id
+                }
+            })
+            .then(data => {
+                where.garageId = data.id
+                where.userId = request.params.id
+            })
+            ) 
+        }
         Model.findAll({
           order: [
             ['id', 'DESC']
@@ -17,9 +33,7 @@ class chatController {
                 attributes: ['id','name','image']
             },
         ],
-          where: {
-              transactionId: request.params.id
-          }
+          where: where
         })
             .then(data => {
                 response.status(200).json(data)
@@ -28,15 +42,25 @@ class chatController {
                 next(err)
             })
     }
-    static create(request, response, next){
+    static async create(request, response, next){
         let data = {
-            transactionId: request.params.id,
-            message: request.body.message
+            message: request.body.message,
         }
-        if (request.body.garageId) {
-            data.garageId = request.body.garageId
-        }else{
+        if (request.userData.roles == 'user') {
+            data.sender = "user"
             data.userId = request.userData.id
+            data.garageId = request.params.id
+        }else {
+            data.sender = "garage"
+            data.userId = request.params.id
+            await (Garages.findOne({
+                where: {
+                    userId: request.userData.id
+                }
+            })
+            .then(datas => {
+                data.garageId = datas.id
+            }))
         }
         Model.create(data)
             .then(data => {

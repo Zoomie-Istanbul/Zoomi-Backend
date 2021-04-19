@@ -808,12 +808,16 @@ Request Head:
 ```
 
 
-### GET /chats/:id_transaction
+### GET /chats/:id_target
 ```
 Request Headers:
 {
   access_token: Required | Token,
 }
+```
+```
+NOTES :
+id_target = if the account logged in as a garage, then fill id_target with the id of the user that chatted with the account, otherwise, fill it with garageId 
 ```
 
 * Success Response
@@ -866,18 +870,21 @@ Request Headers:
 }
 ```
 
-### POST /chats/:id_transaction
+### POST /chats/:id_target
 ```
 Request Headers:
 {
   access_token: Required | Token,
 }
 ```
+
+NOTES :
+id_target = if the account logged in as a garage, then fill id_target with the id of the user that chatted with the account, otherwise, fill it with garageId 
 ```
+
 Request Body:
 {
-  message: Required | String,
-  garageId: Optional | Integer | if the sender is garages. garageId is needed,
+  message: Required | String
 }
 ```
 

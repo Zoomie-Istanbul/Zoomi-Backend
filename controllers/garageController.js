@@ -62,8 +62,6 @@ class GarageController{
 
     static update(request, response, next){
 
-
-
         let data ={}
         if (request.body.name) {
             data.name= request.body.name
@@ -95,11 +93,6 @@ class GarageController{
                 .catch(err => {
                     next(err)
                 })
-        })
-        .catch(err=>{
-            next(err)
-        })
-        
     }
 
     static status(request, response, next){
