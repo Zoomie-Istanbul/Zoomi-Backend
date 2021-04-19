@@ -363,6 +363,7 @@ Request Body:
     "date": "2021-04-16T16:12:11.547Z",
     "status": 0,
     "price": 0,
+    "description: "",
     "updatedAt": "2021-04-16T16:12:11.547Z",
     "createdAt": "2021-04-16T16:12:11.547Z"
 }
@@ -406,6 +407,7 @@ Request Body:
         "updatedAt": "2021-04-16T16:12:11.547Z",
         "garageId": 3,
         "userId": 1,
+        "description: "",
         "User": {
             "id": 1,
             "name": "pepi",
@@ -448,6 +450,7 @@ Request Headers:
     "date": "2021-04-16T16:12:11.547Z",
     "status": 0,
     "price": 0,
+    "description: "",
     "createdAt": "2021-04-16T16:12:11.547Z",
     "updatedAt": "2021-04-16T16:12:11.547Z",
     "garageId": 3,
@@ -488,6 +491,7 @@ Request Body:
   status : Required | INT
   price : Required | INT
   date : Optional | DATE
+  description: Optional | STRING
 }
 ```
 
@@ -501,6 +505,7 @@ Request Body:
         "date": "2021-04-16T16:12:11.547Z",
         "status": 1,
         "price": 3000,
+        "description: "",
         "createdAt": "2021-04-16T16:12:11.547Z",
         "updatedAt": "2021-04-16T17:00:53.960Z",
         "garageId": 3,
