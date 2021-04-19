@@ -127,7 +127,7 @@ class GarageController{
         try {
             Garages.update({image: req.file.link},{
                 where: {
-                    userId: +request.userData.id
+                    userId: +req.userData.id
                 },
             })
             .then(data => {
