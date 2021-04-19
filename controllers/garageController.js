@@ -92,7 +92,6 @@ class GarageController{
                 .catch(err => {
                     next(err)
                 })
-        
     }
 
     static status(request, response, next){
