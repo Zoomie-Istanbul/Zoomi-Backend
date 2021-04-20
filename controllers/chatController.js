@@ -127,6 +127,7 @@ class chatController {
             return Model.create(data)
         })
         .then(data => {
+            global.io.emit('newChat', data);
             response.status(201).json(data)
         })
         .catch(err => {
