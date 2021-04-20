@@ -5,8 +5,11 @@ const router = require('./routes/index')
 const errHandler = require('./helpers/errHandler.js')
 const port = process.env.PORT || 3000
 const app = express()
+const http = require('http').createServer(app)
 const io = require('socket.io')(http);
 global.io = io; 
+
+
 app.use(cors())
 app.use(express.urlencoded({extended: true, limit: "15360mb",}))
 app.use(express.json())
@@ -18,6 +21,6 @@ io.on('connection', (socket) => {
 });
 app.use(errHandler)
 
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`Server is listening on ${port}`)
 })
