@@ -10,6 +10,21 @@ module.exports = {
      */
      await queryInterface.addColumn(
       "Chats",
+      'userChatId',
+      {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'UserChats'
+          },
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+    )
+    await queryInterface.addColumn(
+      "UserChats",
       'userId',
       {
         type: Sequelize.INTEGER,
@@ -24,7 +39,7 @@ module.exports = {
       },
     )
      await queryInterface.addColumn(
-      "Chats",
+      "UserChats",
       'garageId',
       {
         type: Sequelize.INTEGER,
@@ -39,7 +54,7 @@ module.exports = {
       },
     )
   },
-  
+
   down: async (queryInterface, Sequelize) => {
     /**
      * Add reverting commands here.
@@ -47,13 +62,17 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn(
-     "Chats",
-     'garageId'
-   )
-    await queryInterface.removeColumn(
-     "Chats",
-     'userId'
-   )
+     await queryInterface.removeColumn(
+      "Chats",
+      'userChatId'
+    )
+     await queryInterface.removeColumn(
+      "UserChats",
+      'garageId'
+    )
+     await queryInterface.removeColumn(
+      "UserChats",
+      'userId'
+    )
   }
 };
