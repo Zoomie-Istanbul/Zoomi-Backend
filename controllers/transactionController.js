@@ -4,14 +4,14 @@ const {Users, Garages} = require('../models')
 class TransactionController {
     static index(request, response, next){
         let where = {}
-        if (request.params.garageId) {
-            where.garageId = request.params.garageId
+        if (request.query.garageId) {
+            where.garageId = request.query.garageId
         }
-        if (request.params.userId){
+        if (request.query.userId){
             where.userId = request.userData.id
         }
-        if (request.params.status) {
-            where.status = request.params.status
+        if (request.query.status) {
+            where.status = request.query.status
         }
         Model.findAll({
           order: [
