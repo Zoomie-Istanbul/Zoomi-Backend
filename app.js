@@ -13,7 +13,9 @@ app.use(express.json())
 
 
 app.use('/', router)
-
+io.on('connection', (socket) => {
+    console.log('a user connected');
+});
 app.use(errHandler)
 
 app.listen(port, () => {
