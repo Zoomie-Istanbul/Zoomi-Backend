@@ -11,6 +11,9 @@ module.exports = {
       message: {
         type: Sequelize.TEXT
       },
+      status: {
+        type: Sequelize.INTEGER
+      },
       sender: {
         type: Sequelize.STRING
       },
