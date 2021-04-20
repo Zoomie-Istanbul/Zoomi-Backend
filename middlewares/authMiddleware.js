@@ -1,4 +1,4 @@
-const { Users, Favorites, Garages, Transactions, Chats } = require('../models')
+const { Users, Favorites, Garages, Transactions, Chats, Reviews } = require('../models')
 const { verifyToken } = require('../helpers/jwtHelper.js')
 const { Op } = require("sequelize");
 
@@ -117,6 +117,61 @@ const authorizeTransaction = (request, response, next) => {
         next(err)
     })
 }
+const authorizeUpdateReview = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+            email: request.userData.email
+        }
+    })
+    .then(data => {
+        return Reviews.findOne({
+            where: {
+                id: request.params.id,
+                userId: data.id
+            }
+        })
+    })
+    .then(data => {
+        if (data && data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
+const authorizeCreateReview = (request, response, next) => {
+    Users.findOne({
+        where: {
+            id: request.userData.id,
+            email: request.userData.email
+        }
+    })
+    .then(data => {
+        return Transactions.findOne({
+            where: {
+                id: request.params.id,
+                userId: data.id,
+            }
+        })
+    })
+    .then(data => {
+        console.log(data,'ini data')
+        if (data.isReviewed == 1) {
+            next({code:403, msg: 'You already reviewed this item'})
+        } else if (data && data.dataValues.id == request.params.id) {
+            next()
+        }else{
+            next({code:403, msg: 'Unauthorized'})
+        }
+    })
+    .catch(err => {
+        next(err)
+    })
+}
 
 const authorizeDeleteChats = (request, response, next) => {
     Users.findOne({
@@ -163,4 +218,4 @@ const authorizeDeleteChats = (request, response, next) => {
 }
 
 
-module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction, authorizeDeleteChats}
+module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction, authorizeDeleteChats, authorizeCreateReview, authorizeUpdateReview}

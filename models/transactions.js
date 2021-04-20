@@ -20,13 +20,17 @@ module.exports = (sequelize, DataTypes) => {
       Transactions.hasMany(models.Orders,{
         foreignKey: 'transactionId'
       })
+      Transactions.hasOne(models.Reviews,{
+        foreignKey: 'transactionId'
+      })
     }
   };
   Transactions.init({
     date: DataTypes.DATE,
     status: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    description: DataTypes.INTEGER
+    description: DataTypes.INTEGER,
+    isReviewed: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Transactions',

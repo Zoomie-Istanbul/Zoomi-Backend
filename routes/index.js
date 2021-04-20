@@ -12,6 +12,7 @@ const Transactions = require('./transactions.js')
 const Items = require('./items.js')
 const Garages = require('./garages.js')
 const Chats = require('./chats.js')
+const Reviews = require('./reviews.js')
 
 
 const upload = multer({ storage: ImgurStorage({clientId: '6c52d60b29cb368'})})
@@ -32,6 +33,7 @@ router.use('/favorites/', Favorites)
 router.use('/transactions/', Transactions)
 router.use('/item/', Items)
 router.use('/chats/', Chats)
+router.use('/reviews/', Reviews)
 
 // router.use(authenticate)
 
