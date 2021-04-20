@@ -1,5 +1,5 @@
 const express = require('express')
-const {authenticate, authorizeFavorites} = require('../middlewares/authMiddleware.js')
+const {authenticate} = require('../middlewares/authMiddleware.js')
 const Controller = require('../controllers/favoriteController.js')
 const router = express.Router()
 

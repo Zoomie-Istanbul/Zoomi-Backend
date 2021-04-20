@@ -5,35 +5,20 @@ const deleteUsers = () => {
     Users.destroy({
         where: {}
     })
-    .then(data => {
-        next()
-    })
-    .catch(err => {
-        next()
-    })
+    
 }
 const deleteGarage = () => {
     Garages.destroy({
         where: {}
     })
-    .then(data => {
-        next()
-    })
-    .catch(err => {
-        next()
-    })
+    
 }
 
 const deleteFavorite = () => {
     Favorites.destroy({
         where: {}
     })
-    .then(data => {
-        done()
-    })
-    .catch(err => {
-        done()
-    })
+    
 }
 
 // function createUser(){

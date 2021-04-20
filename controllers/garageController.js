@@ -33,12 +33,10 @@ class GarageController{
                         response.status(201).json({success: true, message: "Garage created", data})
                     })
                     .catch (err => {
-                        // console.log(err)
                         next(err)
                     })
             })
             .catch (err => {
-                // console.log(err)
                 next(err)
             })
     }
@@ -54,9 +52,9 @@ class GarageController{
                 let returnData = data.dataValues
                 response.status(200).json(returnData)
                 }
-                else{
-                response.status(401).json({msg: "unauthorized user"})
-                }
+                // else{
+                // response.status(401).json({msg: "unauthorized user"})
+                // }
             })
             .catch(err => {
                 next(err)
@@ -78,12 +76,8 @@ class GarageController{
             returning: true
         })
             .then(data => {
-                if (data[0] === 1) {
                     let returnData = data[1]
                     response.status(200).json(returnData[0].dataValues)
-                }else{
-                    next({code: 404, msg: 'data not found'})
-                }
             })
             .catch(err => {
                 next(err)

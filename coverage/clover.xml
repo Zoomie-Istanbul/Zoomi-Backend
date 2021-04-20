@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1618890765955" clover="3.2.0">
-  <project timestamp="1618890765955" name="All files">
-    <metrics statements="347" coveredstatements="296" conditionals="87" coveredconditionals="52" methods="105" coveredmethods="77" elements="539" coveredelements="425" complexity="0" loc="347" ncloc="347" packages="6" files="23" classes="23"/>
+<coverage generated="1618913304636" clover="3.2.0">
+  <project timestamp="1618913304636" name="All files">
+    <metrics statements="310" coveredstatements="285" conditionals="69" coveredconditionals="43" methods="90" coveredmethods="75" elements="469" coveredelements="403" complexity="0" loc="310" ncloc="310" packages="6" files="23" classes="23"/>
     <package name="Zoomi-Backend">
       <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
       <file name="app.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\app.js">
@@ -22,18 +22,18 @@
       </file>
     </package>
     <package name="Zoomi-Backend.controllers">
-      <metrics statements="138" coveredstatements="109" conditionals="52" coveredconditionals="28" methods="57" coveredmethods="42"/>
+      <metrics statements="124" coveredstatements="106" conditionals="42" coveredconditionals="23" methods="57" coveredmethods="44"/>
       <file name="authController.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\controllers\authController.js">
         <metrics statements="23" coveredstatements="22" conditionals="14" coveredconditionals="9" methods="6" coveredmethods="5"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="30" count="15" type="stmt"/>
         <line num="34" count="15" type="stmt"/>
@@ -73,70 +73,58 @@
         <line num="87" count="4" type="stmt"/>
       </file>
       <file name="garageController.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\controllers\garageController.js">
-        <metrics statements="24" coveredstatements="17" conditionals="12" coveredconditionals="6" methods="11" coveredmethods="7"/>
+        <metrics statements="21" coveredstatements="17" conditionals="10" coveredconditionals="5" methods="11" coveredmethods="8"/>
         <line num="1" count="4" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="81" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="94" count="4" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="51" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
       </file>
       <file name="transactionController.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\controllers\transactionController.js">
-        <metrics statements="33" coveredstatements="24" conditionals="10" coveredconditionals="5" methods="15" coveredmethods="11"/>
+        <metrics statements="24" coveredstatements="21" conditionals="2" coveredconditionals="1" methods="15" coveredmethods="12"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="10" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="67" count="4" type="stmt"/>
-        <line num="74" count="4" type="stmt"/>
-        <line num="75" count="4" type="stmt"/>
-        <line num="77" count="3" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="89" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="99" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="100" count="1" type="stmt"/>
-        <line num="102" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="88" count="2" type="stmt"/>
+        <line num="95" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
         <line num="110" count="1" type="stmt"/>
-        <line num="113" count="1" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="127" count="4" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="124" count="4" type="stmt"/>
       </file>
       <file name="userController.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\controllers\userController.js">
-        <metrics statements="38" coveredstatements="30" conditionals="14" coveredconditionals="7" methods="13" coveredmethods="10"/>
+        <metrics statements="36" coveredstatements="30" conditionals="14" coveredconditionals="7" methods="13" coveredmethods="10"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -171,28 +159,26 @@
         <line num="70" count="1" type="stmt"/>
         <line num="77" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="116" count="4" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="118" count="4" type="stmt"/>
       </file>
     </package>
     <package name="Zoomi-Backend.helpers">
-      <metrics statements="40" coveredstatements="32" conditionals="8" coveredconditionals="6" methods="15" coveredmethods="9"/>
+      <metrics statements="34" coveredstatements="32" conditionals="8" coveredconditionals="6" methods="9" coveredmethods="9"/>
       <file name="errHandler.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\helpers\errHandler.js">
         <metrics statements="14" coveredstatements="12" conditionals="8" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
-        <line num="2" count="21" type="cond" truecount="2" falsecount="0"/>
-        <line num="3" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="2" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="10" count="0" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="16" count="17" type="cond" truecount="1" falsecount="1"/>
-        <line num="17" count="17" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="16" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="18" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="23" count="4" type="stmt"/>
       </file>
@@ -209,37 +195,31 @@
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
-        <line num="4" count="12" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
       <file name="testsHelpers.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\helpers\testsHelpers.js">
-        <metrics statements="14" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="3"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="82" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
       </file>
     </package>
     <package name="Zoomi-Backend.middlewares">
-      <metrics statements="36" coveredstatements="23" conditionals="16" coveredconditionals="10" methods="15" coveredmethods="8"/>
+      <metrics statements="19" coveredstatements="15" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="4"/>
       <file name="authMiddleware.js" path="F:\Hacktiv8\Fase 3\week 4\tdd\Zoomi-Backend\middlewares\authMiddleware.js">
-        <metrics statements="36" coveredstatements="23" conditionals="16" coveredconditionals="10" methods="15" coveredmethods="8"/>
+        <metrics statements="19" coveredstatements="15" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
-        <line num="5" count="27" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="28" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="22" type="stmt"/>
         <line num="7" count="22" type="cond" truecount="3" falsecount="1"/>
         <line num="8" count="22" type="stmt"/>
@@ -247,30 +227,13 @@
         <line num="16" count="22" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="25" count="5" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="37" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="38" count="1" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
-        <line num="48" count="4" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="64" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="75" count="4" type="stmt"/>
-        <line num="76" count="4" type="stmt"/>
-        <line num="83" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="84" count="4" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="109" count="3" type="cond" truecount="3" falsecount="1"/>
-        <line num="110" count="3" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
         <line num="121" count="4" type="stmt"/>
       </file>
     </package>
@@ -368,7 +331,7 @@
         <line num="21" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
-        <line num="79" count="11" type="stmt"/>
+        <line num="79" count="12" type="stmt"/>
         <line num="85" count="4" type="stmt"/>
       </file>
     </package>

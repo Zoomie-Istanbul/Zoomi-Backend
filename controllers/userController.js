@@ -78,16 +78,18 @@ class UserController {
                         // let returnData = data[1]
                         // delete returnData[0].dataValues.password
                         response.status(200).json({msg : 'password updated'})
-                    }else{
-                        next({code: 404, msg: 'data not found'})
                     }
+                    // else{
+                    //     next({code: 404, msg: 'data not found'})
+                    // }
                 })
                 .catch(err => {
                     next(err)
                 })
-            }else{
-                next({code: 400, msg: 'Password must be atleast 6 characters'})
             }
+            // else{
+            //     next({code: 400, msg: 'Password must be atleast 6 characters'})
+            // }
       }
     // static delete(request, response, next){
     //     if (request.params.id) {

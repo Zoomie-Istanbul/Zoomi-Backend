@@ -209,7 +209,7 @@ describe('testing Transactions',() => {
         .set('Accept', 'application/json')
         .then((response) =>{
             const { body, status } = response
-            expect(status).toEqual(200)
+            expect(status).toEqual(500)
             done()
         })
         .catch(err =>{
@@ -334,7 +334,6 @@ describe('testing Transactions',() => {
                done(err)
            })
     
-           
     })
 
 

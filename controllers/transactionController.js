@@ -3,16 +3,12 @@ const {Users, Garages} = require('../models')
 
 class TransactionController {
     static index(request, response, next){
-        let where = {}
-        if (request.body.garageId) {
-            where.garageId = request.body.garageId
+        let where = {
+                garageId : request.body.garageId,
+                userId : request.userData.id,
+                status : request.body.status
         }
-        if (request.body.userId){
-            where.userId = request.userData.id
-        }
-        if (request.body.status) {
-            where.status = request.body.status
-        }
+        
         Model.findAll({
           order: [
             ['id', 'DESC']
@@ -86,9 +82,9 @@ class TransactionController {
             status: request.body.status,
             price: request.body.price,
         }
-        if (request.body.date) {
-            data.date = request.body.date //optional
-        }
+        // if (request.body.date) {
+        //     data.date = request.body.date //optional
+        // }
         Model.update(data,{
             where: {
                 id: request.params.id
@@ -98,9 +94,10 @@ class TransactionController {
             .then(data => {
                 if (data[0] == 1) {
                     response.status(200).json({data: data[1][0].dataValues})
-                }else{
-                    response.status(404).json({msg: 'data not found'})
                 }
+                // else{
+                //     response.status(404).json({msg: 'data not found'})
+                // }
             })
             .catch(err => {
                 next(err)

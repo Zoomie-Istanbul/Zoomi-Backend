@@ -275,6 +275,29 @@ describe('testing update profile',() => {
                 })
         })
 
+        it('update garage without token', (done) => {
+    
+            request(app)
+           .put('/garage')
+        //    .set('access_token', garageToken)
+           .send({
+            name: 'bengkel',
+            address: "jakarta",
+            description: 'bengkel mewah',
+            image: 'twitter.com'
+           })
+           .set('Accept', 'application/json')
+           .then((response) =>{
+               const { body, status } = response
+               expect(status).toEqual(400)
+               done()
+           })
+           .catch(err =>{
+    
+               done(err)
+           })
+    })
+
         
 
         // it('Delete user', (done) => {

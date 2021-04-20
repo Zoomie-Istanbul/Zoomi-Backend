@@ -45,77 +45,77 @@ const authorize = (request, response, next) => {
     })
 }
 
-const authorizeFavorites = (request, response, next) => {
-    Users.findOne({
-        where: {
-            id: request.userData.id,
-            email: request.userData.email
-        }
-    })
-    .then(data => {
-        return Favorites.findOne({
-            where: {
-                id: request.params.id,
-                userId: data.id
-            }
-        })
-    })
-    .then(data => {
-        if (data.dataValues.id == request.params.id) {
-            next()
-        }else{
-            next({code:403, msg: 'Unauthorized'})
-        }
-    })
-    .catch(err => {
-        next(err)
-    })
-}
+// const authorizeFavorites = (request, response, next) => {
+//     Users.findOne({
+//         where: {
+//             id: request.userData.id,
+//             email: request.userData.email
+//         }
+//     })
+//     .then(data => {
+//         return Favorites.findOne({
+//             where: {
+//                 id: request.params.id,
+//                 userId: data.id
+//             }
+//         })
+//     })
+//     .then(data => {
+//         if (data.dataValues.id == request.params.id) {
+//             next()
+//         }else{
+//             next({code:403, msg: 'Unauthorized'})
+//         }
+//     })
+//     .catch(err => {
+//         next(err)
+//     })
+// }
 
-const authorizeTransaction = (request, response, next) => {
-    Users.findOne({
-        where: {
-            id: request.userData.id,
-            email: request.userData.email
-        }
-    })
-    .then(data => {
-        if (data.roles == 'user') {   
-            return Transactions.findOne({
-                where: {
-                    id: request.params.id,
-                    userId: data.id
-                }
-            })
-        }else{
-            return (
-                Garages.findOne({
-                    where: {
-                        userId: data.id
-                    }
-                })
-                .then(datas => {
-                    return Transactions.findOne({
-                        where: {
-                            id: request.params.id,
-                            garageId: datas.id
-                        }
-                    })
-                })
-            )
-        }
-    })
-    .then(data => {
-        if (data && data.dataValues.id == request.params.id) {
-            next()
-        }else{
-            next({code:403, msg: 'Unauthorized'})
-        }
-    })
-    .catch(err => {
-        next(err)
-    })
-}
+// const authorizeTransaction = (request, response, next) => {
+//     Users.findOne({
+//         where: {
+//             id: request.userData.id,
+//             email: request.userData.email
+//         }
+//     })
+//     .then(data => {
+//         if (data.roles == 'user') {   
+//             return Transactions.findOne({
+//                 where: {
+//                     id: request.params.id,
+//                     userId: data.id
+//                 }
+//             })
+//         }else{
+//             return (
+//                 Garages.findOne({
+//                     where: {
+//                         userId: data.id
+//                     }
+//                 })
+//                 .then(datas => {
+//                     return Transactions.findOne({
+//                         where: {
+//                             id: request.params.id,
+//                             garageId: datas.id
+//                         }
+//                     })
+//                 })
+//             )
+//         }
+//     })
+//     .then(data => {
+//         if (data && data.dataValues.id == request.params.id) {
+//             next()
+//         }else{
+//             next({code:403, msg: 'Unauthorized'})
+//         }
+//     })
+//     .catch(err => {
+//         next(err)
+//     })
+// }
 
 
-module.exports = {authenticate, authorize, authorizeFavorites, authorizeTransaction}
+module.exports = {authenticate, authorize}

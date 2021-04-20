@@ -164,6 +164,27 @@ describe('testing post user /login',() => {
             })
     })
 
+    it('Create user',(done) => {
+        let reqBody = {
+            username: 'userbaru',
+            email : 'userbaru@mail.com',
+            name: 'userbaruoi',
+            roles: 'user',
+            password: 'tester'
+        }
+        request(app)
+            .post('/register')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(201)
+                    done()
+                }
+            })
+    })
+
 })
 
 describe('testing post garage /login',() => {
@@ -325,6 +346,28 @@ describe('testing post garage /login',() => {
                     done(err)
                 }else{
                     expect(response.status).toEqual(201)
+                    done()
+                }
+            })
+    })
+
+    it('Create garage without email',(done) => {
+        let reqBody = {
+            username: 'garagecuy',
+            email : '',
+            name: 'bengkel',
+            address: "jakarta",
+            description: 'bengkel mewah',
+            password: 'tester'
+        }
+        request(app)
+            .post('/garage')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(400)
                     done()
                 }
             })
