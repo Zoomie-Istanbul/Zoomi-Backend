@@ -294,6 +294,42 @@ describe('testing post garage /login',() => {
                 }
             })
     })
+
+    it('Find all user',(done) => {
+        request(app)
+            .get('/')
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(404)
+                    done()
+                }
+            })
+    })
+
+    it('Create garage',(done) => {
+        let reqBody = {
+            username: 'garagecuy',
+            email : 'garagebaru@mail.com',
+            name: 'bengkel',
+            address: "jakarta",
+            description: 'bengkel mewah',
+            password: 'tester'
+        }
+        request(app)
+            .post('/garage')
+            .send(reqBody)
+            .end((err, response) => {
+                if (err) {
+                    done(err)
+                }else{
+                    expect(response.status).toEqual(201)
+                    done()
+                }
+            })
+    })
+
 })
 
 

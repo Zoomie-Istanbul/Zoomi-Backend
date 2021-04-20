@@ -89,28 +89,28 @@ class UserController {
                 next({code: 400, msg: 'Password must be atleast 6 characters'})
             }
       }
-    static delete(request, response, next){
-        if (request.params.id) {
-            Users.destroy({
-                where: {
-                    id: request.params.id
-                },
-                returning: true
-            })
-                .then(data => {
-                    if (data[0] === 1) {
-                        response.status(200).json({message: 'user successfully deleted'})
-                    }else{
-                        next({code: 404, msg: 'data not found'})
-                    }
-                })
-                .catch(err => {
-                    next(err)
-                })
-        }else{
-            next({code: 404, msg: 'invalid id'})
-        }
-      }
+    // static delete(request, response, next){
+    //     if (request.params.id) {
+    //         Users.destroy({
+    //             where: {
+    //                 id: request.params.id
+    //             },
+    //             returning: true
+    //         })
+    //             .then(data => {
+    //                 if (data[0] === 1) {
+    //                     response.status(200).json({message: 'user successfully deleted'})
+    //                 }else{
+    //                     next({code: 404, msg: 'data not found'})
+    //                 }
+    //             })
+    //             .catch(err => {
+    //                 next(err)
+    //             })
+    //     }else{
+    //         next({code: 404, msg: 'invalid id'})
+    //     }
+    //   }
 }
 
 module.exports = UserController

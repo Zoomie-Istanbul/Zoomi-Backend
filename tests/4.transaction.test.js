@@ -3,7 +3,7 @@ const request = require('supertest')
 const app = require('../app.js')
 const {deleteUsers, deleteGarage, deleteFavorite} = require('../helpers/testsHelpers.js')
 const {sign} = require('../helpers/jwtHelper.js')
-const {Users, Garages, Favorites} = require('../models')
+const {Users, Garages, Favorites, Transactions} = require('../models')
 const { response } = require('express')
 const { JsonWebTokenError } = require('jsonwebtoken')
 const favorites = require('../models/favorites.js')
@@ -11,8 +11,9 @@ const favorites = require('../models/favorites.js')
 
 let garageToken = ''
 let token = ''
-let testingFavorite = {}
-let favoriteId = 0
+let testingTransaction = {}
+idUser = 0
+idTransaction = 0
 
 beforeAll(function(done) {
         Users.create({
@@ -29,6 +30,9 @@ beforeAll(function(done) {
                 username: data.username,
                 id: data.id
             }
+            idUser = data.id
+            // console.log('ini user id', idUser);
+            // console.log('ini data id', idUser);
             token = sign(tokenMaterial)
             return Users.create({
                 name:'test user',
@@ -55,16 +59,16 @@ beforeAll(function(done) {
             })
         })
         .then((data) =>{
-            let newtestingFavorite = {
+            let newTestingTransaction = {
                 status : 0,
-                userId : data.dataValues.userId,
-                garageId : data.dataValues.id
+                userId : idUser,
+                garageId : data.dataValues.id,
             }
-            testingFavorite = newtestingFavorite
-            return Favorites.create(testingFavorite)
+            testingTransaction = newTestingTransaction
+            return Transactions.create(testingTransaction)
         })
         .then(data =>{
-            favoriteId = data.dataValues.id
+            idTransaction = +data.dataValues.id
             done()
         })
         .catch(err => {
@@ -73,17 +77,19 @@ beforeAll(function(done) {
 }, 30000)
 
 
-describe('testing Favorites',() => {
+describe('testing Transactions',() => {
 
-    it('Successfully create favorites', (done) => {
+    it('Successfully create transaction', (done) => {
     
         request(app)
-       .post('/favorites')
+       .post('/transactions')
        .set('access_token', token)
        .send({
-           garageId: testingFavorite.garageId,
-           userId : testingFavorite.userId,
-           status : 0
+           garageId: testingTransaction.garageId,
+           userId : testingTransaction.userId,
+           status : 0,
+           date : new Date,
+           price : 1000
        })
        .set('Accept', 'application/json')
        .then((response) =>{
@@ -99,14 +105,16 @@ describe('testing Favorites',() => {
        
 })
 
-    it('Create favorites without token', (done) => {
+    it('Create transaction without token', (done) => {
         
         request(app)
-        .post('/favorites')
+        .post('/transactions')
         .send({
-            garageId: testingFavorite.garageId,
-            userId : testingFavorite.userId,
-            status : 0
+           garageId: testingTransaction.garageId,
+           userId : testingTransaction.userId,
+           status : 0,
+           date : new Date,
+           price : 4000
         })
         .set('Accept', 'application/json')
         .then((response) =>{
@@ -119,19 +127,20 @@ describe('testing Favorites',() => {
             done(err)
         })
 
-    
     })
 
-    it('Create without userId', (done) => {
+    it('Create transaction without userId', (done) => {
         
         request(app)
-        .post('/favorites')
+        .post('/transactions')
         .set('access_token', token)
         .send({
-            garageId: testingFavorite.garageId,
-            userId : null,
-            status : 0
-        })
+            garageId: testingTransaction.garageId,
+            // userId : testingTransaction.userId,
+            status : 0,
+            date : new Date,
+            price : 4000
+         })
         .set('Accept', 'application/json')
         .then((response) =>{
             const { body, status } = response
@@ -142,20 +151,20 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
-    
     })
 
-    it('Create without garageId', (done) => {
+    it('Create transaction without garageId', (done) => {
         
         request(app)
-        .post('/favorites')
+        .post('/transactions')
         .set('access_token', token)
         .send({
-            garageId: null,
-            userId : testingFavorite.userId,
-            status : 0
-        })
+            // garageId: testingTransaction.garageId,
+            userId : testingTransaction.userId,
+            status : 0,
+            date : new Date,
+            price : 4000
+         })
         .set('Accept', 'application/json')
         .then((response) =>{
             const { body, status } = response
@@ -166,19 +175,20 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
-    
     })
 
-    it('Create without status', (done) => {
+    it('Create transaction without status', (done) => {
         
         request(app)
-        .post('/favorites')
+        .post('/transactions')
         .set('access_token', token)
         .send({
-            garageId: testingFavorite.garageId,
-            userId : testingFavorite.userId,
-        })
+            garageId: testingTransaction.garageId,
+            userId : testingTransaction.userId,
+            // status : 0,
+            date : new Date,
+            price : 4000
+         })
         .set('Accept', 'application/json')
         .then((response) =>{
             const { body, status } = response
@@ -189,14 +199,12 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
-    
     })
 
-    it('Show all favorites', (done) => {
+    it('Show all transactions', (done) => {
         
         request(app)
-        .get('/favorites')
+        .get('/transactions')
         .set('access_token', token)
         .set('Accept', 'application/json')
         .then((response) =>{
@@ -208,7 +216,6 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
     })
 
     it('Show all favorites without token', (done) => {
@@ -225,13 +232,11 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
     })
 
-    it('Show favorites by id', (done) => {
-        
+    it('Get user by params', (done) => {
         request(app)
-        .get(`/favorites/${favoriteId}`)
+        .get(`/user/${idUser}`)
         .set('access_token', token)
         .set('Accept', 'application/json')
         .then((response) =>{
@@ -243,26 +248,96 @@ describe('testing Favorites',() => {
             console.log(err, "ini error");
             done(err)
         })
-
     })
 
-    it('Delete favorites by id', (done) => {
-        
+    it('Successfully edit transaction', (done) => {
+    
         request(app)
-        .delete(`/favorites/${favoriteId}`)
-        .set('access_token', token)
-        .set('Accept', 'application/json')
-        .then((response) =>{
-            const { body, status } = response
-            expect(status).toEqual(200)
-            done()
-        })
-        .catch(err =>{
-            console.log(err, "ini error");
-            done(err)
+       .put(`/transactions/${idTransaction}`)
+       .set('access_token', token)
+       .send({
+           status : 2,
+           price : 1000
+       })
+       .set('Accept', 'application/json')
+       .then((response) =>{
+           const { body, status } = response
+           expect(status).toEqual(200)
+           done()
+       })
+       .catch(err =>{
+           console.log(err, "ini error");
+           done(err)
+       })
+
+       
+})
+
+        it('Successfully update transaction status', (done) => {
+            
+            request(app)
+            .patch(`/transactions/${idTransaction}`)
+            .set('access_token', token)
+            .send({
+                status : 1
+            })
+            .set('Accept', 'application/json')
+            .then((response) =>{
+                const { body, status } = response
+                expect(status).toEqual(200)
+                done()
+            })
+            .catch(err =>{
+                console.log(err, "ini error");
+                done(err)
+            })
+
+        
         })
 
+        it('Successfully get transaction by params', (done) => {
+            
+            request(app)
+            .get(`/transactions/${idTransaction}`)
+            .set('access_token', token)
+            .set('Accept', 'application/json')
+            .then((response) =>{
+                const { body, status } = response
+                expect(status).toEqual(200)
+                done()
+            })
+            .catch(err =>{
+                console.log(err, "ini error");
+                done(err)
+            })
+
+        
+        })
+
+        it('Edit transaction with wrong params', (done) => {
+    
+            request(app)
+           .put(`/transactions/a`)
+           .set('access_token', token)
+           .send({
+               status : 2,
+               price : 1000
+           })
+           .set('Accept', 'application/json')
+           .then((response) =>{
+               const { body, status } = response
+               expect(status).toEqual(500)
+               done()
+           })
+           .catch(err =>{
+               console.log(err, "ini error");
+               done(err)
+           })
+    
+           
     })
+
+
 
     
 })

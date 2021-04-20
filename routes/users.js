@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', Controller.index)
 router.use(authenticate)
 router.get('/:id', authorize, Controller.find)
-router.delete('/:id', authorize, Controller.delete)
+// router.delete('/:id', authorize, Controller.delete)
 
 
 module.exports = router

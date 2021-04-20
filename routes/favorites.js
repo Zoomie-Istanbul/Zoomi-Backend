@@ -8,7 +8,7 @@ router.use(authenticate)
 router.get('/', Controller.index)
 router.post('/', Controller.create)
 router.get('/:id', Controller.detail)
-router.delete('/:id', authorizeFavorites, Controller.delete)
+router.delete('/:id', Controller.delete)
 
 
 module.exports = router

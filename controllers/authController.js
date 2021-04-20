@@ -13,9 +13,9 @@ class AuthController {
             image: (request.body.image) ? request.body.image : null,
             roles: "user"
         }
-        if (registerData.password && registerData.password.legth < 6 ) {
-            next({code: 400, msg: 'Password must be at least 6 characters'})
-        }
+        // if (registerData.password || registerData.password.legth < 6 ) {
+        //     next({code: 400, msg: 'Password must be at least 6 characters'})
+        // }
         Users.create(registerData)
             .then (data => {
                 let userdata = data.dataValues

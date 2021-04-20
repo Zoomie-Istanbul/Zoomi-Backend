@@ -50,8 +50,6 @@ class GarageController{
             }
         })
             .then(data => {
-                // console.log(request.userData.id, "ini request");
-                // console.log(request.params.id, "ini params");
                 if(+data.userId === +request.userData.id){
                 let returnData = data.dataValues
                 response.status(200).json(returnData)
