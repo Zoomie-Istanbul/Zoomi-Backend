@@ -1,5 +1,5 @@
 const Model = require('../models').Chats
-const {Users, Garages} = require('../models')
+const {Users, Garages, UserChats} = require('../models')
 
 class chatController {
     static async index(request, response, next){
@@ -42,6 +42,55 @@ class chatController {
                 next(err)
             })
     }
+    static async list(request, response, next){
+        let where = {}
+        if (request.userData.roles == 'user') {
+            where.userId = request.userData.id
+        }else{
+            await (Garages.findOne({
+                where: {
+                    userId: request.userData.id
+                }
+            })
+            .then(data => {
+                where.garageId = data.id
+            })
+            ) 
+        }
+        UserChats.findAll({
+          order: [
+            ['id', 'DESC']
+          ],
+          include : [
+              {
+                  model: Model,
+                    include:[
+                      {
+                        model: Users,
+                        attributes: ['id','name','image']
+                      },
+                      {
+                          model: Garages,
+                      },
+                    ]
+              },
+              {
+                model: Users,
+                attributes: ['id','name','image']
+              },
+              {
+                  model: Garages,
+              },
+          ],
+          where: where
+        })
+            .then(data => {
+                response.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
     static async create(request, response, next){
         let data = {
             message: request.body.message,
@@ -62,13 +111,27 @@ class chatController {
                 data.garageId = datas.id
             }))
         }
-        Model.create(data)
-            .then(data => {
-                response.status(201).json(data)
-            })
-            .catch(err => {
-                next(err)
-            })
+        UserChats.findOrCreate({
+            where: {
+                userId: data.userId,
+                garageId: data.garageId
+            },
+            defaults: {
+                userId: data.userId,
+                garageId: data.garageId,
+                status: 1
+            }
+        })
+        .then(userChatsData => {
+            data.userChatId = userChatsData[0].dataValues.id
+            return Model.create(data)
+        })
+        .then(data => {
+            response.status(201).json(data)
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 
     static delete(request, response, next){

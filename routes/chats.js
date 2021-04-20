@@ -7,6 +7,7 @@ const Controller = require('../controllers/chatController')
 router.use(authenticate)
 router.post('/:id', Controller.create)
 router.get('/:id', Controller.index)
+router.get('/', Controller.list)
 router.delete('/:id', authorizeDeleteChats, Controller.delete)
 
 

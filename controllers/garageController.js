@@ -26,7 +26,7 @@ class GarageController{
                     status: 0,
                     address: request.body.address,
                     description: request.body.description,
-                    image: '',
+                    image: request.body.image,
                     userId: data.id
                 }
                 Garages.create(newGarage)
