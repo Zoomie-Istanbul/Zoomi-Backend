@@ -1058,6 +1058,172 @@ Request Headers:
 }
 ```
 
+### GET /reviews/
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+```
+Request Params:
+{
+  user: Optional | INT | User ID,
+  garage: Optional | INT | Garage ID,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 4,
+        "message": "gajadi mantep bg",
+        "score": 6,
+        "createdAt": "2021-04-20T13:06:47.022Z",
+        "updatedAt": "2021-04-20T13:08:35.077Z",
+        "userId": 1,
+        "transactionId": 1,
+        "Transaction": {
+            "id": 1,
+            "date": "2021-04-18T05:13:54.003Z",
+            "status": 0,
+            "price": 0,
+            "description": null,
+            "isReviewed": 1,
+            "createdAt": "2021-04-18T05:13:54.003Z",
+            "updatedAt": "2021-04-20T13:06:47.011Z",
+            "garageId": 2,
+            "userId": 1
+        },
+        "User": {
+            "id": 1,
+            "username": "pepi",
+            "password": "$2b$08$.swECkkO/UyXsyXaZ8Gswui7f30NmanebNbmS3QRNJJ74l/Sdm.Ea",
+            "email": "pepi@gmail.com",
+            "name": "pepi",
+            "roles": "user",
+            "image": "https://i.imgur.com/YDVsbQZ.jpg",
+            "createdAt": "2021-04-18T05:11:57.787Z",
+            "updatedAt": "2021-04-19T04:06:42.585Z"
+        }
+    }
+]
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+### GET /reviews/:id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 4,
+    "message": "gajadi mantep bg",
+    "score": 6,
+    "createdAt": "2021-04-20T13:06:47.022Z",
+    "updatedAt": "2021-04-20T13:08:35.077Z",
+    "userId": 1,
+    "transactionId": 1,
+    "Transaction": {
+        "id": 1,
+        "date": "2021-04-18T05:13:54.003Z",
+        "status": 0,
+        "price": 0,
+        "description": null,
+        "isReviewed": 1,
+        "createdAt": "2021-04-18T05:13:54.003Z",
+        "updatedAt": "2021-04-20T13:06:47.011Z",
+        "garageId": 2,
+        "userId": 1,
+        "Garage": {
+            "id": 2,
+            "name": "astra",
+            "status": 1,
+            "address": "rumah",
+            "image": null,
+            "description": null,
+            "createdAt": "2021-04-18T05:13:24.090Z",
+            "updatedAt": "2021-04-18T05:13:24.090Z",
+            "userId": 2
+        }
+    },
+    "User": {
+        "name": "pepi",
+        "id": 1,
+        "image": "https://i.imgur.com/YDVsbQZ.jpg",
+        "email": "pepi@gmail.com"
+    }
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
+### POST /reviews/:transaction_id
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+
+Request Body:
+{
+  message: Required | String
+  score: Required | INT
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+{
+    "id": 2,
+    "transactionId": 1,
+    "message": "ada yang bisa saya bantu ?",
+    "garageId": 1,
+    "updatedAt": "2021-04-18T05:16:32.301Z",
+    "createdAt": "2021-04-18T05:16:32.301Z",
+    "status": null,
+    "userId": null
+}
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
+
 ### PATCH /garage/upload-avatar
 ```
 Request Headers:
