@@ -1,5 +1,9 @@
 const { Users } = require('../models')
 const {hash} = require('../helpers/passwordHelper.js')
+const imgur = require('imgur');
+const axios = require('axios')
+const base64Img = require('base64-img')
+var fs = require('fs');
 
 class UserController {
     static index(request, response, next){
@@ -28,7 +32,7 @@ class UserController {
                 next(err)
             })
     }
-    static update(request, response, next){
+    static async update(request, response, next){
           let data = {}
             if (request.body.username) {
                 data.username = request.body.username
@@ -38,9 +42,6 @@ class UserController {
             }
             if (request.body.email) {
                 data.email = request.body.email
-            }
-            if (request.body.image) {
-                data.image = request.body.image
             }
           Users.update(data,{
               where: {
@@ -74,8 +75,6 @@ class UserController {
             })
                 .then(data => {
                     if (data[0] === 1) {
-                        // let returnData = data[1]
-                        // delete returnData[0].dataValues.password
                         response.status(200).json({msg : 'password updated'})
                     }else{
                         next({code: 404, msg: 'data not found'})
@@ -108,6 +107,24 @@ class UserController {
                 })
         }else{
             next({code: 404, msg: 'invalid id'})
+        }
+      }
+      static async uploadAvatar(req, res, next) {
+        try {
+            Users.update({image: req.file.link},{
+                where: {
+                    id: req.userData.id
+                },
+            })
+            .then(data => {
+                if (data == 1) {
+                    res.status(200).json({avatar: req.file.link,message: 'avatar successfully updated'})
+                }else{
+                    next({code: 400, msg: 'data not found'})
+                }
+            })
+        } catch (error) {
+          next(error);
         }
       }
 }

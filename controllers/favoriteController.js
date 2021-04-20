@@ -15,12 +15,10 @@ class favoriteController {
           ],
           include:[
             {
-              model: Users,
-              attributes: ['id','name','image']
+              model: Users
             },
             {
-                model: Garages,
-                attributes: ['id','name','image']
+                model: Garages
               },
         ],
           where: where
@@ -39,12 +37,10 @@ class favoriteController {
             },
             include:[
                 {
-                  model: Users,
-                  attributes: ['id','name','image']
+                  model: Users
                 },
                 {
-                    model: Garages,
-                    attributes: ['id','name','image']
+                    model: Garages
                   },
             ],
         })

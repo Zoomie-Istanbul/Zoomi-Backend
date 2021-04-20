@@ -11,20 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Chats.belongsTo(models.Transactions,{
-        foreignKey: 'transactionId'
-      })
       Chats.belongsTo(models.Users,{
         foreignKey: 'userId'
       })
       Chats.belongsTo(models.Garages,{
         foreignKey: 'garageId'
       })
+      Chats.belongsTo(models.UserChats,{
+        foreignKey: 'userChatId'
+      })
     }
   };
   Chats.init({
-    message: DataTypes.TEXT,
-    status: DataTypes.INTEGER
+    message: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Message cant be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'Message cant be empty'
+        }
+      }
+    },
+    sender: DataTypes.STRING,
+    status: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Chats',

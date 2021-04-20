@@ -68,7 +68,7 @@ class TransactionController {
             price: 0,
             description: request.body.description,
         }
-        console.log(data,'ini data')
+        // console.log(data,'ini data')
         Model.create(data)
             .then(data => {
                 response.status(201).json(data)

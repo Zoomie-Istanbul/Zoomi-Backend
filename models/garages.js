@@ -58,7 +58,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    image: DataTypes.TEXT
+    image: DataTypes.TEXT,
+    description: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Garages',
