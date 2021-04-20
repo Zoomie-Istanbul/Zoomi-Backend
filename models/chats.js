@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       Chats.belongsTo(models.Garages,{
         foreignKey: 'garageId'
       })
+      Chats.belongsTo(models.UserChats,{
+        foreignKey: 'userChatId'
+      })
     }
   };
   Chats.init({

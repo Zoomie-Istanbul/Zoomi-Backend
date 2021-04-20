@@ -908,6 +908,84 @@ id_target = if the account logged in as a garage, then fill id_target with the i
   ]
 }
 ```
+### GET /chats/
+```
+Request Headers:
+{
+  access_token: Required | Token,
+}
+```
+
+* Success Response
+```
+- Status: 200
+- Response Body:
+[
+    {
+        "id": 3,
+        "status": 1,
+        "createdAt": "2021-04-20T07:17:26.239Z",
+        "updatedAt": "2021-04-20T07:17:26.239Z",
+        "userId": 1,
+        "garageId": 2,
+        "Chats": [
+            {
+                "id": 16,
+                "message": "bg",
+                "sender": "user",
+                "status": null,
+                "createdAt": "2021-04-20T07:20:25.338Z",
+                "updatedAt": "2021-04-20T07:20:25.338Z",
+                "userId": 1,
+                "garageId": 2,
+                "userChatId": 3,
+                "User": {
+                    "id": 1,
+                    "name": "pepi",
+                    "image": "https://i.imgur.com/YDVsbQZ.jpg"
+                },
+                "Garage": {
+                    "id": 2,
+                    "name": "astra",
+                    "status": 1,
+                    "address": "rumah",
+                    "image": null,
+                    "description": null,
+                    "createdAt": "2021-04-18T05:13:24.090Z",
+                    "updatedAt": "2021-04-18T05:13:24.090Z",
+                    "userId": 2
+                }
+            }
+        ],
+        "User": {
+            "id": 1,
+            "name": "pepi",
+            "image": "https://i.imgur.com/YDVsbQZ.jpg"
+        },
+        "Garage": {
+            "id": 2,
+            "name": "astra",
+            "status": 1,
+            "address": "rumah",
+            "image": null,
+            "description": null,
+            "createdAt": "2021-04-18T05:13:24.090Z",
+            "updatedAt": "2021-04-18T05:13:24.090Z",
+            "userId": 2
+        }
+    }
+]
+```
+* Error Response
+```
+- Status: 400
+- Response Body:
+{
+  errors: [
+    <errors>
+  ]
+}
+```
 
 ### POST /chats/:id_target
 ```
