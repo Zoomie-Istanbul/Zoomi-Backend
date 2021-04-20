@@ -352,7 +352,7 @@ Request Headers:
 }
 ```
 
-Request Params:
+Request Queries:
 {
   garageId or userId : Required (choose one) | INT,
   status : Optional | INT
