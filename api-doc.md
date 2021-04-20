@@ -122,7 +122,7 @@ Request Headers:
   access_token: Required | Token,
 }
 ```
-
+```
 Request Body:
 {
   username: Optional | String,
@@ -158,7 +158,6 @@ Request Body:
   ]
 }
 ```
-
 ### PATCH /upload-avatar
 ```
 Request Headers:
@@ -192,7 +191,6 @@ Request Body:
     <errors>
   ]
 }
-```
 
 ### POST /favorites
 ```
@@ -201,7 +199,7 @@ Request Headers:
   access_token: Required | Token,
 }
 ```
-
+```
 Request Body:
 {
   garageId: Required | INT,
@@ -231,6 +229,7 @@ Request Body:
     <errors>
   ]
 }
+```
 
 ### GET /favorites
 ```
@@ -336,7 +335,6 @@ Request Headers:
 }
 ```
 
-
 ### POST /transactions
 ```
 Request Headers:
@@ -344,7 +342,7 @@ Request Headers:
   access_token: Required | Token,
 }
 ```
-
+```
 Request Body:
 {
   garageId: Required | INT,
@@ -377,6 +375,7 @@ Request Body:
     <errors>
   ]
 }
+```
 
 ### GET /transactions
 ```
@@ -386,7 +385,7 @@ Request Headers:
 }
 ```
 
-Request Body:
+Request Params:
 {
   garageId or userId : Required (choose one) | INT,
   status : Optional | INT
